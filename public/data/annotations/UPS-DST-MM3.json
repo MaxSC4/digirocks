@@ -1,0 +1,77 @@
+[
+    {
+        "id": "anno-001",
+        "type": "point",
+        "viewer": "3D",
+        "position": [0.12, 0.03, 0.22],
+        "linkedTo": "UPS-DST-MM3",
+        "content": {
+            "title": "Cristal de pyroxène",
+            "text": "Structure prismatique caractéristique",
+            "image": null
+        }
+    },
+
+    {
+        "id": "anno-002",
+        "type": "point",
+        "viewer": "3D",
+        "position": [0, 0, 0],
+        "linkedTo": "UPS-DST-MM3",
+        "content": {
+            "title": "Cristal de quartz",
+            "text": "Je sais pas",
+            "image": null
+        }
+    },
+
+    {
+        "id": "anno-003",
+        "type": "zone",
+        "viewer": "3D",
+        "points": [
+            [0.01, 0.00, -0.01],
+            [0.02, 0.00, -0.02],
+            [0.03, 0.00, -0.01],
+            [0.025, 0.00, 0.005]
+        ],
+        "linkedTo": "UPS-DST-MM3",
+        "content": {
+            "title": "Zone altérée",
+            "text": "Altération hydrothermale visible par changement de teinte.",
+            "image": null
+        }
+    },
+
+    {
+        "id": "anno-004",
+        "type": "point",
+        "viewer": "2D",
+        "position": [0, 0],
+        "linkedTo":"UPS-DST-MM3",
+        "content": {
+            "title": "Quartz automorphe",
+            "text": "Grain bien formé dans la matrice.",
+            "image": null
+        }
+    },
+
+    {
+        "id": "anno-005",
+        "type": "zone",
+        "viewer": "2D",
+        "linkedTo": "UPS-DST-MM3",
+        "points": [
+            [100, 100],
+            [600, 80],
+            [700, 300],
+            [500, 500],
+            [200, 450]
+        ],
+        "content": {
+            "title": "Golfes de dissolution",
+            "text": "Zone bien délimitée",
+            "image": null
+        }
+    }
+]

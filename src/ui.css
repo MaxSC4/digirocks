@@ -1,0 +1,727 @@
+body,
+button,
+.view-btn,
+.tooltip-text,
+.loader-text {
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+}
+
+:root {
+    --color-bg: #ffffff;
+    --color-fg: #333333;
+    --color-primary: #51247A;
+    --color-secondary: #CBAE88;
+    --color-panel: rgba(255, 255, 255, 0.95);
+    --canvas-bg: #ffffff;
+    --color-tooltip-bg: white;
+    --color-tooltip-fg: var(--color-primary);
+    --shadow-popup: 0 6px 20px rgba(0, 0, 0, 0.12);
+    --shadow-ui: 0 8px 20px rgba(0, 0, 0, 0.1);
+    --color-scale-bar: black;
+    --viewer2d-bg: #ffffff;
+
+}
+
+/* 🌙 Mode sombre */
+:root[data-theme="dark"] {
+    --color-bg: #1a1a1a;
+    --color-fg: #eeeeee;
+    --color-primary: #CBAE88;     
+    --color-secondary: #51247A;
+    --color-panel: rgba(30, 30, 30, 0.95);
+    --canvas-bg: #121212;
+    --color-tooltip-bg: #1f1f1f;
+    --color-tooltip-fg: var(--color-primary);
+    --shadow-popup: 0 6px 20px rgba(0, 0, 0, 0.6);
+    --shadow-ui: 0 8px 20px rgba(0, 0, 0, 0.4);
+    --color-scale-bar: var(--color-fg);
+    --viewer2d-bg: #1a1a1a;
+}
+
+.toolbar-ui {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    background: var(--color-panel);
+    padding: 10px 20px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-ui);
+    z-index: 10;
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.toolbar-ui button {
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toolbar-ui button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(81, 36, 122, 0.2);
+}
+
+.toolbar-ui .icon {
+    width: 22px;
+    height: 22px;
+    stroke: var(--color-primary);
+    stroke-width: 2;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) translateX(-50%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) translateX(-50%);
+    }
+}
+
+.tooltip-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tooltip-text {
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    background: white;
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    padding: 6px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 50;
+    font-weight: 500;
+}
+
+.tooltip-btn:hover .tooltip-text {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: white;
+}
+
+.tooltip-left .tooltip-text {
+    top: 50%;
+    left: auto;
+    right: calc(100% + 2px);
+    bottom: auto;
+    transform: translateY(-50%);
+}
+
+.tooltip-left .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-left-color: white;
+}
+
+.view-toggle-ui {
+    width: fit-content;
+    max-width: 100%;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    position: relative;
+    background: var(--color-panel);
+    border-radius: 12px;
+    padding: 4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 20;
+    backdrop-filter: blur(6px);
+    gap: 4px;
+}
+
+.toggle-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    background: var(--color-primary);
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    z-index: 0;
+}
+
+.view-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    z-index: 1;
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+}
+
+.view-btn.active {
+    color: white;
+}
+
+.view-btn .icon {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+}
+
+.viewer-fade {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.98);
+}
+
+.viewer-fade.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+    z-index: 1;
+}
+
+#threeCanvas, #thinSectionViewer {
+    background: var(--viewer2d-bg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#threeCanvas.active,
+#thinSectionViewer.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+
+#thinSectionUI {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.rock-name {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-panel);
+    color: var(--color-primary);
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    backdrop-filter: blur(4px);
+    z-index: 20;
+    animation: fadeIn 0.3s ease;
+    max-width: 90vw;
+    white-space: nowrap;
+}
+
+.rock-name .icon {
+    width: 18px;
+    height: 18px;
+    stroke: var(--color-primary);
+}
+
+
+
+#loader3D {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 100;
+    display: none;
+}
+
+.geo-loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: none !important;          
+    padding: 0 !important;
+    margin: 0;
+    border: none;
+    box-shadow: none !important;          
+    border-radius: 0 !important;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.5s ease;
+    text-align: center;
+    gap: 16px;
+    stroke: var(--color-secondary);
+
+}
+
+.circle-loader {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash 1.5s ease-in-out infinite;
+    color: var(--color-primary); 
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+    50% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -35;
+    }
+    100% {
+        stroke-dasharray: 90, 150;
+        stroke-dashoffset: -124;
+    }
+}
+
+
+.loader-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-fg);
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    margin-top: 16px;
+}
+
+@keyframes spin {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(81, 36, 122, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(81, 36, 122, 0);
+    }
+}
+
+
+
+
+.rock-list {
+    position: fixed;
+    top: 80px;
+    left: 20px;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 8px;
+    max-height: 60vh;
+    overflow-y: auto;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.rock-list h3 {
+    margin: 10px 0 5px;
+    font-size: 0.9em;
+}
+
+.rock-list button {
+    display: block;
+    margin-bottom: 5px;
+    width: 100%;
+    font-size: 0.9em;
+    padding: 4px 6px;
+    background: var(--color-fg);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.rock-list button:hover {
+    background: #ddd;
+}
+
+.scale-ui {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--color-panel);
+    padding: 8px 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(6px);
+    animation: fadeIn 0.4s ease;
+}
+
+.scale-ui .icon {
+    width: 20px;
+    height: 20px;
+    stroke: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.scale-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.scale-bar {
+    width: 80px;
+    height: 4px;
+    background: var(--color-scale-bar);
+    margin-bottom: 4px;
+    border-radius: 2px;
+}
+
+.scale-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-fg);
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+/* === Popups d’annotation (2D & 3D) === */
+.anno-popup,
+.ts-popup {
+    position: absolute;
+    background-color: var(--color-bg); 
+    border-radius: 12px;
+    padding: 16px 20px 14px 20px;
+    max-width: 280px;
+    font-size: 0.85rem;
+    font-family: 'Open Sans', sans-serif;
+    color: var(--color-fg);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transform: translate(-50%, -100%);
+    animation: popupFade 0.3s ease-out;
+    pointer-events: auto;
+    z-index: 50;
+    border-left: 4px solid var(--color-primary); 
+    isolation: isolate;
+}
+
+/* Contenu interne */
+.anno-popup-content {
+    padding-right: 28px;
+    line-height: 1.5;
+}
+
+/* Bouton de fermeture */
+.close-anno {
+    color: var(--color-fg);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-anno .icon {
+    width: 18px;
+    height: 18px;
+    stroke: var(--color-fg);
+    transition: stroke 0.2s ease;
+}
+
+.close-anno:hover .icon {
+    stroke: #000;
+}
+
+/* Animation d’apparition */
+@keyframes popupFade {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -110%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -100%);
+    }
+}
+
+
+#annotationPopupsContainer {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 50;
+}
+.anno-popup {
+    pointer-events: auto;
+}
+
+
+#popupLineCanvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 40;
+}
+
+#popup2DContainer {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 60;
+    pointer-events: none;
+}
+
+
+.loupe2d {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 6px black;
+    pointer-events: none;
+    z-index: 100;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+}
+
+#metaSidebarToggle {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: var(--color-panel);
+    border-top-left-radius: 10px;
+    color: var(--color-primary);
+    border-bottom-left-radius: 10px;
+    padding: 10px 12px;
+    cursor: pointer;
+    z-index: 101;
+    box-shadow: var(--shadow-ui);
+    transition: background 0.2s ease;
+}
+
+#metaSidebarToggle:hover {
+    background: rgba(81, 36, 122, 0.1);
+}
+
+#metaSidebarToggle .icon {
+    stroke: var(--color-primary);
+}
+
+.meta-sidebar {
+    position: fixed;
+    top: 0;
+    right: -360px;
+    width: 320px;
+    height: 100%;
+    background: var(--color-panel);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.08);
+    transition: right 0.35s ease;
+    padding: 24px 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    backdrop-filter: blur(6px);
+    font-family: 'Open Sans', sans-serif;
+}
+
+.meta-sidebar.open {
+    right: 0;
+}
+
+.meta-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.meta-section h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.meta-section p,
+.meta-section div {
+    font-size: 0.85rem;
+    color: var(--color-fg);
+    line-height: 1.4;
+}
+
+.meta-section {
+    border-left: 3px solid var(--color-secondary);
+    padding-left: 12px;
+}
+
+.toast-message {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--color-primary);
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.85rem;
+    padding: 10px 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 200;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toast-message .icon {
+    width: 18px;
+    height: 18px;
+    stroke: white;
+    flex-shrink: 0;
+}
+
+.toast-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;   
+    left: 20px; 
+    background: var(--color-panel);
+    color: var(--color-primary);
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 11;
+    box-shadow: var(--shadow-ui);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(81, 36, 122, 0.2);
+}
+
+.theme-toggle .icon {
+    width: 22px;
+    height: 22px;
+    stroke: var(--color-primary);
+}
+
+
+.toolbar-ui,
+.view-toggle-ui,
+.rock-name,
+#toggleTheme,
+#metaSidebarToggle {
+    z-index: 10;
+}
+
+
+
+
+

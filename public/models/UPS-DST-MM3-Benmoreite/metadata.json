@@ -1,0 +1,28 @@
+{
+    "nom": "Benmoreite",
+    "sampleName": "Benmoréite",
+    "origine": "Magmatique",
+    "numero": "3",
+    "code": "UPS-DST-MM3",
+    "path": "/models/UPS-DST-MM3-Benmoreite/",
+    "meta": {
+        "description": {
+            "title": "Description",
+            "icon": "info",
+            "content": "Roche volcanique alcaline, généralement noire à gris foncé, contenant des feldspaths et de l’olivine."
+        },
+
+        "lieu": {
+            "title": "Lieu de prélèvement",
+            "icon": "map-pin",
+            "content": "Île de Benmore, Ecosse"
+        },
+
+        "geoHtml": {
+            "title": "Diagramme TAS",
+            "icon": "flask-conical",
+            "content": "<img src='models/UPS-DST-MM3-Benmoreite/images/TAS_classification.png' style='max-width:100%;' />"
+        }
+    }
+}
+
