@@ -47,5 +47,8 @@ export function displayMetadata(meta, sidebarEl, contentEl) {
     });
 
     sidebarEl.classList.add('open');
-    lucide?.createIcons();
+
+    if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+        lucide.createIcons();
+    }
 }
