@@ -1,5 +1,6 @@
 import { init3DViewer } from './viewer3d.js';
 import { loadRockDatabase } from './rockParser.js';
+import { createIcons } from 'lucide'
 
 let viewer3DInitialized = false;
 let viewer2DInitialized = false;
@@ -11,6 +12,10 @@ const viewer2D = document.getElementById('thinSectionViewer');
 const toolbar = document.getElementById('toolbar');
 const thinUI = document.getElementById('thinSectionUI');
 const toggleBg = document.querySelector('.toggle-background');
+
+window.addEventListener('DOMContentLoaded', () => {
+    createIcons()
+})
 
 window.addEventListener('load', () => {
     btn3D.click(); 
