@@ -32,9 +32,6 @@ import {
 } from '/src/utils/modelLoader.js';
 import { fetchAndDisplayMetadata } from '/src/utils/metadataUtils.js';
 
-
-
-
 /**
  * 
  * Init 3D scene, camera, renderer, controls, light and axes helper 
@@ -99,8 +96,6 @@ function updateActiveAnnotations(activeAnnotations, camera) {
         item.popup.style.top = `${screenY}px`
     });
 }
-
-
 
 export function init3DViewer(canvas) {
     const initialCameraPosition = new THREE.Vector3(0, 0, 5);
