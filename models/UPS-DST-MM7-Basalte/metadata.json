@@ -1,0 +1,16 @@
+{
+    "nom": "Basalte",
+    "sampleName": "Basalte",
+    "origine": "Magmatique",
+    "numero": "7",
+    "code": "UPS-DST-MM7",
+    "path": "/models/UPS-DST-MM7-Basalte/",
+    "description": "Roche magmatique volcanique noire à grains fins, issue d’un refroidissement rapide de la lave.",
+    "lieu": "Piton de la Fournaise, La Réunion",
+    "geochimie": {
+        "SiO2": 49.2,
+        "FeO": 10.1,
+        "MgO": 6.8,
+        "CaO": 11.3
+    }
+}

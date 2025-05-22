@@ -1,0 +1,16 @@
+{
+    "nom": "Tephrite",
+    "sampleName": "Téprhite",
+    "origine": "Magmatique",
+    "numero": "17",
+    "code": "UPS-DST-MM17",
+    "path": "/models/UPS-DST-MM17-Tephrite/",
+    "description": "Roche volcanique sombre riche en feldspaths et clinopyroxènes, à texture microlithique.",
+    "lieu": "Chaîne des Puys, France",
+    "geochimie": {
+        "SiO2": 47.0,
+        "Na2O": 5.2,
+        "K2O": 3.1,
+        "Al2O3": 17.5
+    }
+}

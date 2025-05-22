@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>DigiRocks3D - 0.0.1</title>
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons();
+      });
+    </script>
+    <script type="module" crossorigin src="/assets/index-BKpdQfVA.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BtJeH1ET.css">
+  </head>
+  <body>
+
+    <!-- Barre de switch 3D / 2D -->
+    <div id="viewToggle" class="view-toggle-ui">
+      <div class="toggle-background"></div>
+      <button id="btn3D" class="view-btn active" aria-label="Modèle 3D">
+        <svg class="icon" data-lucide="box"></svg>
+        <span>Modèle 3D</span>
+      </button>
+      <button id="btn2D" class="view-btn" aria-label="Lame mince">
+        <svg class="icon" data-lucide="microscope"></svg>
+        <span>Lame mince</span>
+      </button>
+    </div>
+
+    <!-- Scroll liste des roches (temporaire) -->
+    <div id="rockList" class ="rock-list"></div>
+
+    <!-- Nom de l'échantillon sélectionné -->
+    <div id="sampleName" class="rock-name">
+      <svg class="icon" data-lucide="tag"></svg>
+      <span id="sampleNameText">Échantillon : </span>
+    </div>  
+    
+    <button id="toggleTheme" class="tooltip-btn theme-toggle" aria-label="Basculer le thème">
+      <svg class="icon" data-lucide="moon"></svg>
+      <span class="tooltip-text">Mode sombre</span>
+    </button>
+
+    <!-- Echelle -->
+    <div id="scaleContainer" class="scale-ui">
+      <svg class="icon" data-lucide="ruler"></svg>
+      <div class="scale-content">
+        <div id="scaleBar" class="scale-bar"></div>
+        <div id="scaleLabel" class="scale-label">1 cm</div>
+      </div>
+    </div>
+
+    <!-- Zone d'affichage Three.js -->
+    <canvas id="threeCanvas" class="active"></canvas>
+
+    <!-- Chargement du modèle -->
+    <div id="loader3D" class="geo-loader">
+      <svg class="geo-spinner" viewBox="0 0 50 50">
+        <circle class="circle-loader" cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" />
+      </svg>
+      <div class="loader-text">Chargement...</div>
+    </div>
+    
+
+    <!-- Zone d'affichage de la lame mince (cachée au début) -->
+    <div id="thinSectionViewer"></div>
+
+    <!-- UI spécifique au visualiseur 2D -->
+    <div id="thinSectionUI" style="display: none;">
+      <div id="thinToolbar" class="toolbar-ui">
+        <button id="resetThinView" class="tooltip-btn">
+          <svg class="icon" data-lucide="rotate-ccw"></svg>
+          <span class="tooltip-text">Réinitialiser la vue</span>
+        </button>
+        <button id="fullscreenThin" class="tooltip-btn">
+          <svg class="icon" data-lucide="maximize-2"></svg>
+          <span class="tooltip-text">Plein écran</span>
+        </button>
+        <button id="toggleAnnotations2D" class="tooltip-btn">
+          <svg class="icon" data-lucide="eye"></svg>
+          <span class="tooltip-text">Afficher les annotations</span>
+        </button>
+        <button id="captureThinScreenshot" class="tooltip-btn">
+          <svg class="icon" data-lucide="camera"></svg>
+          <span class="tooltip-text">Capture d'écran</span>
+        </button>
+        <button id="toggleMagnifier2D" class="tooltip-btn">
+          <svg class="icon" data-lucide="search"></svg>
+          <span class="tooltip-text">Loupe x4</span>
+        </button>
+      </div>
+      
+    </div>
+
+    <div id="popup2DContainer"></div>
+
+    <!-- Toolbar -->
+    <div id="toolbar" class="toolbar-ui active">
+      <button id="resetView" class="tooltip-btn">
+        <svg class="icon" data-lucide="rotate-ccw"></svg>
+        <span class="tooltip-text">Réinitialiser la vue</span>
+      </button>
+      <button id="zoomIn" class="tooltip-btn">
+        <svg class="icon" data-lucide="zoom-in"></svg>
+        <span class="tooltip-text">Zoom avant</span>
+      </button>
+      <button id="zoomOut" class="tooltip-btn">
+        <svg class="icon" data-lucide="zoom-out"></svg>
+        <span class="tooltip-text">Zoom arrière</span>
+      </button>
+      <button id="toggleAutoRotate" class="tooltip-btn">
+        <svg class="icon" data-lucide="refresh-ccw"></svg>
+        <span class="tooltip-text">Rotation automatique</span>
+      </button>
+      <button id="toggleAxes" class="tooltip-btn">
+        <svg class="icon" data-lucide="axis-3d"></svg>
+        <span class="tooltip-text">Afficher les axes</span>
+      </button>
+      <button id="toggleMeasure" class="tooltip-btn">
+        <svg class="icon" data-lucide="ruler"></svg>
+        <span class="tooltip-text">Activer la règle</span>
+      </button>
+      <button id="toggleAreaMeasure" class="tooltip-btn">
+        <svg class="icon" data-lucide="pentagon"></svg>
+        <span class="tooltip-text"> Mesurer une surface</span>
+      </button>
+      <button id="captureView" class="tooltip-btn">
+        <svg class="icon" data-lucide="camera"></svg>
+        <span class="tooltip-text">Capturer la vue</span>
+      </button>
+      <button id="viewTop" class="tooltip-btn">
+        <svg class="icon" data-lucide="arrow-up"></svg>
+        <span class="tooltip-text">Vue de dessus</span>
+      </button>
+      <button id="viewFront" class="tooltip-btn">
+        <svg class="icon" data-lucide="square"></svg>
+        <span class="tooltip-text">Vue de face</span>
+      </button>
+      <button id="viewSide" class="tooltip-btn">
+        <svg class="icon" data-lucide="align-horizontal-space-around"></svg>
+        <span class="tooltip-text">Vue de profil</span>
+      </button>
+      <button id="toggleFullscreen" class="tooltip-btn">
+        <svg class="icon" data-lucide="maximize-2"></svg>
+        <span class="tooltip-text">Plein écran</span>
+      </button>
+      <button id="toggleAnnotations" class="tooltip-btn">
+        <svg class="icon" data-lucide="eye"></svg>
+        <span class="tooltip-text">Afficher les annotations</span>
+      </button>
+    </div>
+
+    <!-- Bouton toggle latéral -->
+    <div id="metaSidebarToggle" class="tooltip-btn tooltip-left" aria-label="Informations">
+      <svg class="icon" data-lucide="info"></svg>
+      <span class="tooltip-text">Infos échantillon</span>
+    </div>
+
+    <!-- Panneau latéral -->
+    <aside id="metaSidebar" class="meta-sidebar">
+      <button id="closeMetaSidebar" 
+        style="position: absolute;top: 14px;right: 16px;font-size: 20px;border:none;background:none;color:var(--color-fg);cursor:pointer;">
+        x
+      </button>
+
+      <div class="meta-header">
+        <h3>
+          <i data-lucide="layers" class="icon"></i>
+          Informations sur l'échantillon
+        </h3>
+      </div>
+      <div id="metaSidebarContent"></div>
+    </aside>
+
+
+
+    <div id="annotationPopupsContainer"></div>
+
+    <!-- Annotation Popup -->
+    <div id="annotationPopup" class="anno-popup" style="display: none">
+      <button class="close-anno" aria-label="Fermer">
+        <svg class="icon" data-lucide="x"></svg>
+      </button>
+      <div class="anno-popup-content">
+        <p>Contenu de l’annotation…</p>
+      </div>
+    </div>
+
+    <canvas id="popupLineCanvas"></canvas>
+
+    <div id="toast" class="toast-message">
+      <svg class="icon" data-lucide="alert-circle"></svg>
+      <span id="toastText"></span>
+    </div>
+
+    <!-- JS principal -->
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</html>
+
