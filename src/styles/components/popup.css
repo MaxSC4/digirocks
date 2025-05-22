@@ -15,17 +15,25 @@
     border-left: 4px solid var(--color-primary);
 }
 
-.popup-close {
+.close-anno {
     position: absolute;
-    top: 10px; right: 10px;
-    background: none;
+    top: 10px;
+    right: 10px;
+    background: transparent;
     border: none;
     cursor: pointer;
+    padding: 4px;
+    color: var(--color-fg);         
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.popup-close .icon {
-    width: 18px; height: 18px;
-    stroke: var(--color-fg);
+.close-anno .icon,
+.close-anno svg {
+    stroke: var(--color-fg) !important;   
+    fill: none !important;            
 }
 
 @keyframes popupFade {
