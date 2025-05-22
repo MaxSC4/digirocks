@@ -20,7 +20,7 @@ export async function init2DViewer(container){
 
     let thinSectionURL = null;
     for (const ext of THIN_SECTION_EXTENSIONS) {
-        const url = `${rock.path}/TS${ext}`;
+        const url = `${rock.path}TS${ext}`;
         if (await imageExists(url)) {
             thinSectionURL = url;
             break;

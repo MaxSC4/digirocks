@@ -356,7 +356,7 @@ export function init3DViewer(canvas) {
     }
 
     async function chargerAnnotations3D(code) {
-        const path = `/data/annotations/${code}.json`;
+        const path = `data/annotations/${code}.json`;
         let annotations = [];
         try {
             annotations = await loadJSON(path);
