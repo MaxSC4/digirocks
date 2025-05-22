@@ -61,6 +61,9 @@
 }
 
 .meta-section h4 {
+    display: flex;            
+    align-items: center;      
+    gap: 6px;  
     font-size: 0.95rem;
     font-weight: 600;
     color: var(--color-primary);

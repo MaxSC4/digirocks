@@ -22,6 +22,7 @@
     border: none;
     cursor: pointer;
 }
+
 .popup-close .icon {
     width: 18px; height: 18px;
     stroke: var(--color-fg);
