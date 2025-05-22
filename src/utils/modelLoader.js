@@ -59,19 +59,21 @@ export async function loadModel(rock, scene) {
 export function configureCameraForModel(model, camera, controls, scene, { cmPerUnit = 100 } = {}) {
     const box = new THREE.Box3().setFromObject(model);
     const center = new THREE.Vector3(); box.getCenter(center);
+    model.position.sub(center);
     const size = new THREE.Vector3();  box.getSize(size);
     const maxDim = Math.max(size.x, size.y, size.z);
     const distance = maxDim * 2.5;
 
     window.cmPerUnit = cmPerUnit;
     camera.position.set(
-        center.x + distance * 0.6,
-        center.y + distance * 0.4,
-        center.z + distance
+        distance * 0.6,
+        distance * 0.4,
+        distance
     );
-    controls.target.copy(center);
+    controls.target.set(0, 0, 0);
+
     controls.update();
 
     scene.userData.initialCameraPosition = camera.position.clone();
-    scene.userData.initialCameraTarget = center.clone();
+    scene.userData.initialCameraTarget = new THREE.Vector3(0, 0, 0);
 }

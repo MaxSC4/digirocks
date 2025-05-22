@@ -184,9 +184,9 @@ export function init3DViewer(canvas) {
 
     const toolbar = setupToolbarActions([
         { id: 'resetView',  handler: () => {
-            camera.position.copy(initialCameraPosition);
-            controls.target.copy(initialCameraTarget);
-            controls.update
+            camera.position.copy(scene.userData.initialCameraPosition);
+            controls.target.copy(scene.userData.initialCameraTarget);
+            controls.update();
         }, toastMsg: "Vue réinitialisée"
         },
         { id: 'zoomIn', handler: () => zoomCamera(-0.2)},
