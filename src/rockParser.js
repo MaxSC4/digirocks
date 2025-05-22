@@ -1,5 +1,5 @@
 export async function loadRockDatabase() {
-    const basePath = '/models/';
+    const basePath = import.meta.env.BASE_URL + 'models/';
     
     // A automatiser plus tard
     const rockDirs = [
