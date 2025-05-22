@@ -99,7 +99,6 @@ function updateActiveAnnotations(activeAnnotations, camera) {
 
 export function init3DViewer(canvas) {
     const initialCameraPosition = new THREE.Vector3(0, 0, 5);
-    const initialCameraTarget   = new THREE.Vector3(0, 0, 0);
 
     const {
         scene,
@@ -248,10 +247,24 @@ export function init3DViewer(canvas) {
         const hit = performRaycast(event, camera, model);
         if (!hit) return;
 
-        measurePoints.push(hit.point.clone());
-        if (measurePoints.length === 2) {
+        const p = hit.point.clone();
+
+        if (measurePoints.length === 0) {
+            measurePoints.push(p);
+            const mat = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+            const geo = new THREE.SphereGeometry(0.001, 16, 16);
+            const marker = new THREE.Mesh(geo, mat);
+            marker.position.copy(p);
+            scene.add(marker);
+            measurePoints3D.push(marker);
+            return;    
+        }
+
+        if (measurePoints.length === 1) {
+            measurePoints.push(p);
             drawMeasurement(measurePoints[0], measurePoints[1]);
-            measurePoints = [];
+            measurePoints = []; 
+            return;
         }
     }
 
@@ -467,7 +480,8 @@ export function init3DViewer(canvas) {
         loader3D.style.display = 'block';
 
         try {
-            const model = await loadModel(rock, scene);
+            const loadedModel = await loadModel(rock, scene);
+            model = loadedModel;
             configureCameraForModel(model, camera, controls, scene, { cmPerUnit: 100 });
             await chargerAnnotations3D(rock.code);
             await fetchAndDisplayMetadata(`${rock.path}/metadata.json`, {

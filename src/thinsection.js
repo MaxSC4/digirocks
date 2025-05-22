@@ -41,7 +41,7 @@ export async function init2DViewer(container){
         state.translate = { x: 0, y: 0 };
         updateTransform();
         },
-        toastMsg: 'View reset'
+        toastMsg: 'Vue réinitialisée'
     },
     {
         id: 'fullscreenThin',
@@ -72,7 +72,7 @@ export async function init2DViewer(container){
             link.click();
         });
         },
-        toastMsg: 'Screenshot captured'
+        toastMsg: 'Capture téléchargée'
     },
     {
         id: 'toggleMagnifier2D',

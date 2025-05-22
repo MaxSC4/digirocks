@@ -9,6 +9,10 @@ import * as THREE from 'three';
  */
 
 export function performRaycast(event, camera, target) {
+    if (!camera || !target){
+        console.warn('performRaycast: missing camera or target', { camera, target });
+        return null;
+    }
     const mouse = new THREE.Vector2(
         (event.clientX / window.innerWidth) * 2 - 1,
         -(event.clientY / window.innerHeight) * 2 + 1
