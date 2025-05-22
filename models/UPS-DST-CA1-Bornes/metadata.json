@@ -4,7 +4,7 @@
     "origine": "Autre",
     "numero": "1",
     "code": "UPS-DST-CA1",
-    "path": "/models/UPS-DST-CA1-Bornes/",
+    "path": "models/UPS-DST-CA1-Bornes/",
     "description": "Roche volcanique alcaline, généralement noire à gris foncé, contenant des feldspaths et de l’olivine.",
     "lieu": "Île de Bénmore, Écosse",
     "geoHtml": "<img src='models/UPS-DST-MM3-Benmoreite/images/TAS_classification.png' style='max-width:100%;' />"

@@ -4,7 +4,7 @@
     "origine": "Magmatique",
     "numero": "7",
     "code": "UPS-DST-MM7",
-    "path": "/models/UPS-DST-MM7-Basalte/",
+    "path": "models/UPS-DST-MM7-Basalte/",
     "description": "Roche magmatique volcanique noire à grains fins, issue d’un refroidissement rapide de la lave.",
     "lieu": "Piton de la Fournaise, La Réunion",
     "geochimie": {
