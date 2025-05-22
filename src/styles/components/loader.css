@@ -1,0 +1,28 @@
+/* === components/loader.css === */
+#loader3D,
+.geo-loader {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    display: none;
+}
+.geo-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    animation: fadeIn var(--anim-duration) var(--anim-ease);
+}
+.circle-loader {
+    stroke-dasharray: 90,150;
+    animation: dash 1.5s ease-in-out infinite;
+    color: var(--color-primary);
+}
+.loader-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-fg);
+    margin-top: 16px;
+}

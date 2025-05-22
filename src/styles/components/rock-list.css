@@ -1,0 +1,28 @@
+.rock-list {
+    position: fixed;
+    top: 80px; left: 20px;
+    z-index: 20;
+    background: rgba(255,255,255,0.9);
+    padding: 10px;
+    border-radius: 8px;
+    max-height: 60vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-popup);
+}
+.rock-list h3 {
+    margin: 10px 0 5px;
+    font-size: 0.9em;
+}
+.rock-list button {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    padding: 4px 6px;
+    background: var(--color-fg);
+    color: var(--color-bg);
+    border-radius: 5px;
+}
+.rock-list button:hover {
+    background: #ddd;
+}

@@ -1,0 +1,14 @@
+/* Loupe / Magnifier (round canvas) */
+.loupe2d {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary);
+    background: var(--color-panel);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 220;
+    transform: translate(-50%, -50%);
+}

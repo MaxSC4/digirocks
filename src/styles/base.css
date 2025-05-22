@@ -1,0 +1,24 @@
+/* Reset et typographie de base */
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body,
+button,
+.view-btn,
+.tooltip-text,
+.loader-text {
+    font-family: var(--font-base) !important;
+    margin: 0;
+    padding: 0;
+}
+
+/* Eléments interactifs par défaut */
+button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}

@@ -1,0 +1,34 @@
+/* Couleurs et thèmes */
+:root {
+    --color-bg: #ffffff;
+    --color-fg: #333333;
+    --color-primary: #51247A;
+    --color-secondary: #CBAE88;
+    --color-panel: rgba(255, 255, 255, 0.95);
+    --canvas-bg: #ffffff;
+    --color-tooltip-bg: white;
+    --color-tooltip-fg: var(--color-primary);
+    --shadow-popup: 0 6px 20px rgba(0, 0, 0, 0.12);
+    --shadow-ui: 0 8px 20px rgba(0, 0, 0, 0.1);
+    --color-scale-bar: black;
+    --viewer2d-bg: #ffffff;
+
+    --font-base: 'Open Sans', sans-serif;
+    --anim-duration: 0.5s;
+    --anim-ease: ease-out;
+}
+
+:root[data-theme="dark"] {
+    --color-bg: #1a1a1a;
+    --color-fg: #eeeeee;
+    --color-primary: #CBAE88;
+    --color-secondary: #51247A;
+    --color-panel: rgba(30, 30, 30, 0.95);
+    --canvas-bg: #121212;
+    --color-tooltip-bg: #1f1f1f;
+    --color-tooltip-fg: var(--color-primary);
+    --shadow-popup: 0 6px 20px rgba(0, 0, 0, 0.6);
+    --shadow-ui: 0 8px 20px rgba(0, 0, 0, 0.4);
+    --color-scale-bar: var(--color-fg);
+    --viewer2d-bg: #1a1a1a;
+}

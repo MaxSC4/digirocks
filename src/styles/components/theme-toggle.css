@@ -1,0 +1,27 @@
+/* Bouton bascule Thème (clair/sombre) */
+#toggleTheme {
+    position: fixed;
+    top: 60px;
+    right: 20px;           
+    width: 40px;
+    height: 40px;
+    background: var(--color-panel);
+    border-radius: 50%;
+    box-shadow: var(--shadow-ui);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+#toggleTheme .icon {
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-primary);
+    transition: transform 0.2s ease;
+}
+
+#toggleTheme:hover .icon {
+    transform: scale(1.1);
+}

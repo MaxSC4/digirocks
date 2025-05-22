@@ -1,0 +1,54 @@
+.view-toggle-ui {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    background: var(--color-panel);
+    border-radius: 12px;
+    padding: 4px;
+    box-shadow: var(--shadow-ui);
+    backdrop-filter: blur(6px);
+    gap: 4px;
+    z-index: 20;
+}
+
+.toggle-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: var(--color-primary);
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    z-index: 0;
+}
+
+.view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-family: var(--font-base);
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+    z-index: 1;
+}
+
+.view-btn.active {
+    color: white;
+}
+
+.view-btn .icon {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+}
+

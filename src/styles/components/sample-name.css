@@ -1,0 +1,27 @@
+.rock-name {
+    position: fixed;
+    top: 20px;
+    right: 20px;              /* coin haut-droite, hors sidebar */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-panel);
+    color: var(--color-primary);
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: var(--font-base);
+    box-shadow: var(--shadow-ui);
+    backdrop-filter: blur(4px);
+    z-index: 10;
+    white-space: nowrap;
+    max-width: 90vw;
+    animation: fadeIn var(--anim-duration) var(--anim-ease);
+}
+
+.rock-name .icon {
+    width: 18px;
+    height: 18px;
+    stroke: var(--color-primary);
+}

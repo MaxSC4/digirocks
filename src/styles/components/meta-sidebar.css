@@ -1,0 +1,75 @@
+/* Bouton pour ouvrir/fermer la sidebar */
+#metaSidebarToggle {
+    position: fixed;
+    top: 60px;
+    right: 70px;          /* à gauche du bouton thème */
+    width: 40px;
+    height: 40px;
+    background: var(--color-panel);
+    border-radius: 50%;
+    box-shadow: var(--shadow-ui);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Icône à l’intérieur */
+#metaSidebarToggle .icon {
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-primary);
+}
+
+/* Sidebar des métadonnées */
+.meta-sidebar {
+    position: fixed;
+    top: 0;
+    right: -360px;               /* cachée par défaut */
+    width: 320px;
+    height: 100%;
+    background: var(--color-panel);
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.08);
+    transition: right 0.35s ease;
+    padding: 24px 20px;
+    backdrop-filter: blur(6px);
+    font-family: var(--font-base);
+    z-index: 150;
+    pointer-events: none;        /* pas d’interaction quand fermée */
+}
+
+.meta-sidebar.open {
+    right: 0;
+    pointer-events: auto;        /* interaction réactivée quand ouverte */
+}
+
+.meta-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 16px;
+}
+
+.meta-section {
+    border-left: 3px solid var(--color-secondary);
+    padding-left: 12px;
+    margin-bottom: 24px;
+}
+
+.meta-section h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    margin: 0 0 4px;
+}
+
+.meta-section p,
+.meta-section div {
+    font-size: 0.85rem;
+    color: var(--color-fg);
+    line-height: 1.4;
+}

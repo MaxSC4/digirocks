@@ -1,0 +1,33 @@
+/* Centrage absolu */
+.centered {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Bouton à effet de scale+ombre */
+.btn-hover-scale {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-hover-scale:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(81, 36, 122, 0.2);
+}
+
+/* Barre de mise à l’échelle */
+.scale-bar {
+    width: 80px; height: 4px;
+    background: var(--color-scale-bar);
+    border-radius: 2px;
+}
+.scale-label {
+    font-size: 0.75rem; font-weight: 600;
+    color: var(--color-fg);
+}
+
+/* Z-index générique pour les UI flottantes */
+.z-ui { z-index: 10; }
+.z-popup { z-index: 50; }
+
+/* Plein écran reusable */
+.full-screen { position:absolute; top:0; left:0; width:100vw; height:100vh; }
