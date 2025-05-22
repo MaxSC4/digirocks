@@ -21,7 +21,13 @@ export function createMagnifier(imgEl, state, {
     canvas.className = 'loupe2d';
     canvas.style.position = 'absolute';
     canvas.style.pointerEvents = 'none';
-    const ctx = canvas.getContext('2d');
+
+    let ctx;
+    try {
+        ctx = canvas.getContext('2d');
+    } catch (e) {
+        ctx = null;
+    }
 
     let lastDraw = 0;
     const MIN_DELAY = 16;

@@ -3,11 +3,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 
-import { setupToolbarActions } from '/src/utils/toolbar.js';
-import { performRaycast, performRaycastOnObjects } from '/src/utils/raycast.js';
-import { createMeasurementLine, createPopup } from '/src/utils/measurementUtils.js';
-import { computeViewportHeight, computeLengthFromPixels } from '/src/utils/scaleUtils.js';
-import { CAMERA_VIEWS, computeCameraPosition } from '/src/utils/viewUtils.js';
+import { setupToolbarActions } from '../src/utils/toolbar.js';
+import { performRaycast, performRaycastOnObjects } from '../src/utils/raycast.js';
+import { createMeasurementLine, createPopup } from '../src/utils/measurementUtils.js';
+import { computeViewportHeight, computeLengthFromPixels } from '../src/utils/scaleUtils.js';
+import { CAMERA_VIEWS, computeCameraPosition } from '../src/utils/viewUtils.js';
 
 import {
     loadJSON,
@@ -16,7 +16,7 @@ import {
     buildAnnotationPopupHTML,
     projectToScreen,
     attachAnnotationPopup
-} from '/src/utils/annotationUtils.js';
+} from '../src/utils/annotationUtils.js';
 
 import {
     addAreaPoint,
@@ -24,13 +24,13 @@ import {
     calculateSurfaceArea,
     createAreaPopup,
     clearAreaMeasurement as clearAreaUtil
-} from '/src/utils/areaUtils.js';
+} from '../src/utils/areaUtils.js';
 
 import {
     loadModel,
     configureCameraForModel
-} from '/src/utils/modelLoader.js';
-import { fetchAndDisplayMetadata } from '/src/utils/metadataUtils.js';
+} from '../src/utils/modelLoader.js';
+import { fetchAndDisplayMetadata } from '../src/utils/metadataUtils.js';
 
 /**
  * 

@@ -1,7 +1,6 @@
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import * as THREE from 'three';
-import { loadJSON } from '/src/utils/annotationUtils.js';
 
 /**
  * Charge un fichier MTL et retourne le matériau.

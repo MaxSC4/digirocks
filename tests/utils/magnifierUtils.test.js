@@ -1,9 +1,22 @@
-import { describe, it, expect, vi } from 'vitest';
+import { vi } from 'vitest';
+
+// Stub getContext pour jsdom
+HTMLCanvasElement.prototype.getContext = function () {
+    return {
+        clearRect: vi.fn(),
+        save:      vi.fn(),
+        beginPath: vi.fn(),
+        arc:       vi.fn(),
+        clip:      vi.fn(),
+        drawImage: vi.fn(),
+        restore:   vi.fn()
+    };
+};
+
 import { createMagnifier } from '../../src/utils/magnifierUtils.js';
 
 describe('magnifierUtils', () => {
     it('createMagnifier returns canvas and handler', () => {
-        // prepare dummy image
         const img = document.createElement('img');
         img.getBoundingClientRect = () => ({ left: 0, top: 0 });
         const state = { scale: 1, translate: { x: 0, y: 0 } };
@@ -21,12 +34,11 @@ describe('magnifierUtils', () => {
         const { element, handleMouse } = createMagnifier(img, state, { size: 40, zoomFactor: 2 });
         document.body.appendChild(element);
 
-        // simulate mouse at client coordinates
         const evt = new MouseEvent('mousemove', { clientX: 30, clientY: 50 });
         handleMouse(evt);
 
-        // canvas should move to the event location
         expect(element.style.left).toBe('30px');
         expect(element.style.top).toBe('50px');
     });
 });
+
