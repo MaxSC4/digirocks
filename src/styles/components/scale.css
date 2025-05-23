@@ -1,8 +1,8 @@
 /* Barre d’échelle (scale UI) */
 .scale-ui {
     position: fixed;
-    bottom: 20px;
-    left: 20px;
+    bottom: var(--toolbar-padding);
+    left: var(--toolbar-padding);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -41,4 +41,14 @@
     font-weight: 600;
     color: var(--color-fg);
     font-family: var(--font-base);
+}
+
+@media screen and (max-width: 1280px) {
+    .scale-ui {
+        bottom: calc(
+            var(--toolbar-height) * 2.5
+            + var(--scale-bar-gap)
+        );
+        left: var(--toolbar-padding);
+    }
 }

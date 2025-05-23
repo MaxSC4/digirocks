@@ -1,13 +1,13 @@
 .toolbar-ui {
     position: fixed;
-    bottom: 20px;
+    bottom: var(--toolbar-padding);
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 12px;
+    gap: var(--toolbar-padding);
     background: var(--color-panel);
-    padding: 10px 20px;
-    border-radius: 16px;
+    padding: var(--toolbar-padding) calc(var(--toolbar-padding));
+    border-radius: calc(var(--toolbar-padding) * 2);
     box-shadow: var(--shadow-ui);
     z-index: 10;
     backdrop-filter: blur(8px);
@@ -17,8 +17,8 @@
 .toolbar-ui button {
     background: transparent;
     border: none;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: var(--toolbar-padding);
+    padding: var(--toolbar-padding);
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     display: flex;
@@ -32,9 +32,31 @@
 }
 
 .toolbar-ui .icon {
-    width: 22px;
-    height: 22px;
+    width: var(--toolbar-icon-size);
+    height: var(--toolbar-icon-size);
     stroke: var(--color-primary);
     stroke-width: 2;
 }
+
+@media screen and (max-width: 1280px) {
+    .toolbar-ui {
+        position: fixed;
+        bottom: 0;              
+        left: 0;
+        right: 0;               
+        transform: none;
+        width: 100%;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        padding: var(--toolbar-padding) 0 var(--toolbar-padding) 0;
+    }
+    .toolbar-ui button {
+        padding: calc(var(--toolbar-padding) * 0.8);
+    }
+    .toolbar-ui .icon {
+        width: calc(var(--toolbar-icon-size) * 1.2);
+        height: calc(var(--toolbar-icon-size) * 1.2);
+    }
+}
+
 

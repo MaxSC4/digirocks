@@ -16,6 +16,15 @@
     --font-base: 'Open Sans', sans-serif;
     --anim-duration: 0.5s;
     --anim-ease: ease-out;
+
+    --toolbar-icon-size: clamp(1.5rem, 1vw, 3rem);
+    --toolbar-padding: clamp(0.25rem, 3vw, 0.8rem);
+
+    --toolbar-height: calc(
+        var(--toolbar-icon-size) 
+        + var(--toolbar-padding) * 2
+    );
+    --scale-bar-gap: clamp(9rem, 3vw, 1rem);
 }
 
 :root[data-theme="dark"] {
@@ -31,4 +40,13 @@
     --shadow-ui: 0 8px 20px rgba(0, 0, 0, 0.4);
     --color-scale-bar: var(--color-fg);
     --viewer2d-bg: #1a1a1a;
+
+    --toolbar-icon-size: clamp(1.25rem, 1vw, 3rem);
+    --toolbar-padding: clamp(0.25rem, 3vw, 0.8rem);
+
+    --toolbar-height: calc(
+        var(--toolbar-icon-size) 
+        + var(--toolbar-padding) * 2
+    );
+    --scale-bar-gap: clamp(1rem, 3vw, 1rem);
 }
