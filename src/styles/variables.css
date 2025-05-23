@@ -2,11 +2,11 @@
 :root {
     /* UI générique */
     --ui-offset: clamp(0.5rem, 5vw, 1rem);
-    --ui-padding: clamp(0.25rem, 1vw, 0.5rem);
-    --ui-gap: clamp(0.25rem, 1vw, 0.5rem);
+    --toolbar-padding: clamp(0.25rem, 3vw, 0.9rem);
+    --ui-gap: clamp(0.25rem, 3vw, 0.8rem);
     --ui-radius: clamp(0.5rem, 3vw, 1rem);
-    --icon-size: clamp(0.87rem, 2.5vw, 1.2rem);
-    --font-scale: clamp(0.75rem, 2vw, 0.9rem);
+    --icon-size: clamp(1rem, 4vw, 1.5rem);
+    --font-scale: clamp(0.9rem, 1vw, 0.8rem);
 
     --color-bg: #ffffff;
     --color-fg: #333333;
@@ -25,19 +25,21 @@
     --anim-duration: 0.5s;
     --anim-ease: ease-out;
 
-    --toolbar-icon-size: clamp(1.5rem, 1vw, 3rem);
-    --toolbar-padding: clamp(0.25rem, 1vw, 0.8rem);
+    --toolbar-icon-size: clamp(1.25rem, 1vw, 3rem);
+    --toolbar-padding: clamp(0.25rem, 3vw, 0.7rem);
 
     --toolbar-height: calc(
         var(--toolbar-icon-size) 
         + var(--toolbar-padding) * 2
     );
-    --scale-bar-gap: clamp(9rem, 3vw, 1rem);
+    --scale-bar-gap: clamp(1rem, 3vw, 1rem);
 
     --toggle-height: calc(
         var(--font-scale)      
-        + var(--ui-padding) 
+        + var(--ui-padding) * 3
     );
+
+    --sample-name-gap: clamp(0.75rem, 5vw, 1.5rem);
 }
 
 :root[data-theme="dark"] {
