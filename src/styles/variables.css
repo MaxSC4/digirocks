@@ -2,11 +2,11 @@
 :root {
     /* UI générique */
     --ui-offset: clamp(0.5rem, 5vw, 1rem);
-    --toolbar-padding: clamp(0.25rem, 3vw, 0.9rem);
-    --ui-gap: clamp(0.25rem, 3vw, 0.8rem);
+    --ui-padding: clamp(0.25rem, 1vw, 0.5rem);
+    --ui-gap: clamp(0.25rem, 1vw, 0.5rem);
     --ui-radius: clamp(0.5rem, 3vw, 1rem);
-    --icon-size: clamp(1rem, 4vw, 1.5rem);
-    --font-scale: clamp(0.9rem, 1vw, 0.8rem);
+    --icon-size: clamp(0.87rem, 2.5vw, 1.2rem);
+    --font-scale: clamp(0.75rem, 2vw, 0.9rem);
 
     --color-bg: #ffffff;
     --color-fg: #333333;
@@ -43,14 +43,6 @@
 }
 
 :root[data-theme="dark"] {
-    /* UI générique */
-    --ui-offset: clamp(0.5rem, 5vw, 1rem);
-    --toolbar-padding: clamp(0.25rem, 3vw, 0.9rem);
-    --ui-gap: clamp(0.25rem, 3vw, 0.8rem);
-    --ui-radius: clamp(0.5rem, 3vw, 1rem);
-    --icon-size: clamp(1rem, 4vw, 1.5rem);
-    --font-scale: clamp(0.9rem, 1vw, 0.8rem);
-
     --color-bg: #1a1a1a;
     --color-fg: #eeeeee;
     --color-primary: #CBAE88;
