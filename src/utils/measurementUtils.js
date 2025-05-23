@@ -68,3 +68,110 @@ export function createPopup(innerHTML, screenPos, container) {
     container.appendChild(popup);
     return popup;
 }
+
+
+/**
+ * Draws a red marker (circle) on the given SVG <svg> element.
+ * @param {SVGSVGElement} svg    – la couche SVG (zoneSvg)
+ * @param {{ x: number, y: number }} imgPoint – coordonnées dans le plan image (avant zoom/translate)
+ * @param {{ scale: number, translate: { x, y } }} state – état pan/zoom
+ * @returns {SVGCircleElement}   – l’élément <circle> ajouté
+ */
+export function draw2DMarker(svg, imgPoint, state) {
+    const { x, y } = imgPoint;
+    const cx = x * state.scale + state.translate.x;
+    const cy = y * state.scale + state.translate.y;
+
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', cx);
+    circle.setAttribute('cy', cy);
+    circle.setAttribute('r', '5');
+    circle.setAttribute('fill', 'red');
+    circle.setAttribute('pointer-events', 'none');
+    svg.appendChild(circle);
+    return circle;
+}
+
+/**
+ * Draws or updates a line between two image-points on the SVG layer.
+ * @param {SVGSVGElement} svg
+ * @param {[number, number]} p1
+ * @param {[number, number]} p2
+ * @param {{ scale: number, translate: { x, y } }} state
+ * @param {SVGLineElement|null} existingLine – element to replace (or null)
+ * @returns {SVGLineElement}
+ */
+export function draw2DLine(svg, p1, p2, state, existingLine = null) {
+    if (existingLine) svg.removeChild(existingLine);
+
+    const [x1, y1] = p1, [x2, y2] = p2;
+    const x1p = x1 * state.scale + state.translate.x;
+    const y1p = y1 * state.scale + state.translate.y;
+    const x2p = x2 * state.scale + state.translate.x;
+    const y2p = y2 * state.scale + state.translate.y;
+
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', x1p);
+    line.setAttribute('y1', y1p);
+    line.setAttribute('x2', x2p);
+    line.setAttribute('y2', y2p);
+    line.setAttribute('stroke','red');
+    line.setAttribute('stroke-width','2');
+    line.setAttribute('pointer-events','none');
+    svg.appendChild(line);
+    return line;
+}
+
+/**
+ * Creates a DOM popup showing the distance between two image-points.
+ * @param {[number, number]} p1
+ * @param {[number, number]} p2
+ * @param {{ scale: number, translate: { x, y } }} state
+ * @param {number} cmPerUnit
+ * @param {HTMLElement} container
+ * @returns {HTMLElement}
+ */
+export function show2DMeasurePopup(p1, p2, state, cmPerUnit, container) {
+    // Clean old popup
+    const old = container.querySelector('.ts-popup[data-2d-measure]');
+    if (old) old.remove();
+
+    // distance px → cm
+    const dx = (p2[0] - p1[0]) * state.scale * cmPerUnit;
+    const dy = (p2[1] - p1[1]) * state.scale * cmPerUnit;
+    const dist = Math.hypot(dx, dy).toFixed(1);
+
+    // position midpoint in screen px
+    const midX = ((p1[0] + p2[0])/2) * state.scale + state.translate.x;
+    const midY = ((p1[1] + p2[1])/2) * state.scale + state.translate.y;
+
+    const popup = document.createElement('div');
+    popup.className = 'ts-popup';
+    popup.setAttribute('data-2d-measure','');
+    popup.innerHTML = `<button class="close-anno">&times;</button><div>${dist} cm</div>`;
+    popup.style.position = 'absolute';
+    popup.style.left = `${midX}px`;
+    popup.style.top  = `${midY}px`;
+    container.appendChild(popup);
+
+    popup.querySelector('.close-anno')
+        .addEventListener('click', () => {
+            popup.remove()
+            clearAllMeasures();
+        });
+
+    return popup;
+}
+
+/**
+ * Clears all 2D measurement artifacts: markers, line, popup.
+ * @param {SVGSVGElement} svg
+ * @param {SVGCircleElement[]} markers
+ * @param {SVGLineElement|null} line
+ * @param {HTMLElement|null} popup
+ */
+export function clear2DMeasure(svg, markers, line, popup) {
+    markers.forEach(c => svg.removeChild(c));
+    if (line) svg.removeChild(line);
+    if (popup) popup.remove();
+}

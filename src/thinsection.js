@@ -5,6 +5,13 @@ import { THIN_SECTION_EXTENSIONS, imageExists } from './utils/ioUtils.js';
 import { createMagnifier } from './utils/magnifierUtils.js';
 
 import {
+    draw2DMarker,
+    draw2DLine,
+    show2DMeasurePopup,
+    clear2DMeasure
+} from './utils/measurementUtils.js';
+
+import {
     createAnnotationPoint2D,
     createAnnotationPolygon2D,
     attach2DPopup,
@@ -13,6 +20,15 @@ import {
 } from './utils/annotation2DUtils.js';
 
 export async function init2DViewer(container){
+
+    let measure2DActive = false;
+    let measurePoints2D = [];
+    let measureMarkers2D = [];
+    let measureLine2D = null;
+    let measurePopup2D = null;
+    let previewLine2D = null;
+    let previewMarker2D = null;
+
     container.innerHTML = '';
 
     const rock = window.rocheActuelle;
@@ -97,6 +113,21 @@ export async function init2DViewer(container){
         }
         },
         toggleClass: 'active'
+    },
+    {
+        id: 'measure2DBtn',
+        handler: () => {
+            measure2DActive = !measure2DActive;
+            if (!measure2DActive) {
+                clear2DMeasure(zoneSvg, measureMarkers2D, measureLine2D, measurePopup2D);
+                clearAllMeasures();
+                measureMarkers2D = [];
+                measureLine2D = null;
+                measurePopup2D = null;
+            }
+        },
+        toggleClass: 'active',
+        toastMsg: 'Mesure rectiligne'
     }
     ]);
 
@@ -163,4 +194,84 @@ export async function init2DViewer(container){
     }
 
     chargerAnnotations2D(rock.code);
+
+    function onMeasure2DMouseMove(event) {
+        if (measurePoints2D.length !== 1) return;
+        console.log('preview mousemove');
+        const rect = img.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / state.scale;
+        const y = (event.clientY - rect.top)  / state.scale;
+
+        // écran coords du point 1
+        const [x1, y1] = measurePoints2D[0];
+        const x1p = x1 * state.scale + state.translate.x;
+        const y1p = y1 * state.scale + state.translate.y;
+        // écran coords du point courant
+        const x2p = x * state.scale + state.translate.x;
+        const y2p = y * state.scale + state.translate.y;
+
+        // previewLine2D (mise à jour ou création)
+        previewLine2D = draw2DLine(zoneSvg,
+        [x1, y1], [x, y], state, previewLine2D
+        );
+        // previewMarker2D
+        if (!previewMarker2D) {
+        previewMarker2D = draw2DMarker(zoneSvg, {x, y}, state);
+        } else {
+        previewMarker2D.setAttribute('cx', x2p);
+        previewMarker2D.setAttribute('cy', y2p);
+        }
+    }
+
+    function clearAllMeasures() {
+        // retire preview
+        if (previewLine2D)   zoneSvg.removeChild(previewLine2D);
+        if (previewMarker2D) zoneSvg.removeChild(previewMarker2D);
+        previewLine2D   = null;
+        previewMarker2D = null;
+        // retire définitif
+        clear2DMeasure(zoneSvg, measureMarkers2D, measureLine2D, measurePopup2D);
+        measureMarkers2D = [];
+        measureLine2D    = null;
+        measurePopup2D   = null;
+        // désactive preview listener
+        panZoomLayer.removeEventListener('mousemove', onMeasure2DMouseMove);
+        // décocher bouton
+        document.getElementById('measure2DBtn')?.classList.remove('active');
+        measure2DActive = false;
+    }
+
+    panZoomLayer.addEventListener('click', (event) => {
+        if (!measure2DActive) return;
+
+        const rect = img.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / state.scale;
+        const y = (event.clientY - rect.top)  / state.scale;
+
+        measurePoints2D.push([x,y]);
+
+        if (measurePoints2D.length === 1) {
+            const m = draw2DMarker(zoneSvg, {x,y}, state);
+            measureMarkers2D.push(m);
+            panZoomLayer.addEventListener('mousemove', onMeasure2DMouseMove);
+            return;
+        }
+        else if (measurePoints2D.length === 2) {
+            // stop preview
+            panZoomLayer.removeEventListener('mousemove', onMeasure2DMouseMove);
+            if (previewLine2D)   zoneSvg.removeChild(previewLine2D);
+            if (previewMarker2D) zoneSvg.removeChild(previewMarker2D);
+            previewLine2D   = null;
+            previewMarker2D = null;
+            measureLine2D = draw2DLine(zoneSvg, measurePoints2D[0], measurePoints2D[1], state, measureLine2D);
+            measurePopup2D = show2DMeasurePopup(
+                measurePoints2D[0],
+                measurePoints2D[1],
+                state,
+                window.cmPerUnit || 1,
+                document.getElementById('popup2DContainer')
+            );
+            measurePoints2D = [];
+        } 
+    })
 }
