@@ -100,16 +100,27 @@ export function attachAnnotationPopup(html, screenPos, container, worldPos, came
     popup.innerHTML      = html;
     container.appendChild(popup);
 
-    const px = (screenPos.x * 0.5 + 0.5) * window.innerWidth;
-    const py = (-screenPos.y * 0.5 + 0.5) * window.innerHeight;
-    popup.style.left = `${px}px`;
-    popup.style.top = `${py}px`;
-
-    const unproj = new THREE.Vector3(screenPos.x, screenPos.y, 0.5).unproject(camera);
-    const geom = new THREE.BufferGeometry().setFromPoints([ worldPos, unproj ]);
+    const unproj0 = new THREE.Vector3(screenPos.x, screenPos.y, 0.5).unproject(camera);
+    const geom = new THREE.BufferGeometry().setFromPoints([ worldPos, unproj0 ]);
     const mat = new THREE.LineBasicMaterial({ color: 0x000000 });
     const line = new THREE.Line(geom, mat);
     scene.add(line);
+
+    function updateFrame() {
+        const proj = worldPos.clone().project(camera);
+
+        const px = (proj.x * 0.5 + 0.5) * window.innerWidth;
+        const py = (-proj.y * 0.5 + 0.5) * window.innerHeight;
+        popup.style.left = `${px}px`;
+        popup.style.top = `${py}px`;
+
+        const unproj = new THREE.Vector3(proj.x, proj.y, 0.5).unproject(camera);
+        line.geometry.setFromPoints([ worldPos, unproj ]);
+
+        requestAnimationFrame(updateFrame);
+    }
+
+    requestAnimationFrame(updateFrame);
 
     return { popup, line };
 }
