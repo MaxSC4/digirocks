@@ -38,25 +38,6 @@
     stroke-width: 2;
 }
 
-@media screen and (max-width: 1280px) {
-    .toolbar-ui {
-        position: fixed;
-        bottom: 0;              
-        left: 0;
-        right: 0;               
-        transform: none;
-        width: 100%;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        padding: var(--toolbar-padding) 0 var(--toolbar-padding) 0;
-    }
-    .toolbar-ui button {
-        padding: calc(var(--toolbar-padding) * 0.8);
-    }
-    .toolbar-ui .icon {
-        width: calc(var(--toolbar-icon-size) * 1.2);
-        height: calc(var(--toolbar-icon-size) * 1.2);
-    }
-}
+
 
 

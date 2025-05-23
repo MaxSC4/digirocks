@@ -1,0 +1,66 @@
+@media screen and (max-width: 1280px) {
+
+    .toolbar-ui {
+        position: fixed;
+        bottom: 0;              
+        left: 0;
+        right: 0;               
+        transform: none;
+        width: 100%;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        padding: var(--toolbar-padding) 0 var(--toolbar-padding) 0;
+    }
+    .toolbar-ui button {
+        padding: calc(var(--toolbar-padding) * 0.8);
+    }
+    .toolbar-ui .icon {
+        width: calc(var(--toolbar-icon-size) * 1.2);
+        height: calc(var(--toolbar-icon-size) * 1.2);
+    }
+
+    .scale-ui {
+        bottom: calc(
+            var(--toolbar-height) * 2.5
+            + var(--scale-bar-gap)
+        );
+        left: var(--toolbar-padding);
+    }
+
+    .rock-name {
+        position: fixed;
+        top: calc(
+            var(--ui-offset)       
+            + var(--toggle-height) * 2.5  
+            + var(--ui-gap)         
+        );
+        left: 50%;                
+        transform: translateX(-50%);
+        right: auto;
+        max-width: 90vw;
+    }
+
+    #metaSidebarToggle,
+    #toggleTheme {
+        position: fixed;
+        right: var(--ui-offset);  
+        transform: none;
+    }
+
+    #metaSidebarToggle {
+        top: var(--ui-offset);
+        width: 40px;
+        height: 40px;
+        margin-bottom: var(--ui-gap); 
+    }
+
+    #toggleTheme {
+        top: calc(
+            var(--ui-offset)        
+            + 40px                   
+            + var(--ui-gap)         
+        );
+        width: 40px;
+        height: 40px;
+    }
+}

@@ -1,15 +1,15 @@
 .view-toggle-ui {
     position: fixed;
-    top: 20px;
+    top: var(--ui-offset);
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     background: var(--color-panel);
-    border-radius: 12px;
-    padding: 4px;
+    border-radius: var(--ui-radius);
+    padding: var(--toolbar-padding);
     box-shadow: var(--shadow-ui);
     backdrop-filter: blur(6px);
-    gap: 4px;
+    gap: var(--ui-gap);
     z-index: 20;
 }
 
@@ -20,7 +20,7 @@
     width: 50%;
     height: 100%;
     background: var(--color-primary);
-    border-radius: 8px;
+    border-radius: calc(var(--ui-radius) * 0.8);
     transition: transform 0.3s ease;
     z-index: 0;
 }
@@ -29,26 +29,23 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: var(--ui-gap);
     background: transparent;
     border: none;
-    padding: 8px 14px;
-    border-radius: 8px;
+    padding: var(--ui-padding);
+    border-radius: calc(var(--ui-padding) * 0.8);
     font-family: var(--font-base);
-    font-size: 0.85rem;
+    font-size: var(--font-scale);
     cursor: pointer;
     color: var(--color-primary);
     transition: color 0.3s ease;
     z-index: 1;
 }
-
 .view-btn.active {
     color: white;
 }
-
 .view-btn .icon {
-    width: 20px;
-    height: 20px;
+    width: var(--toolbar-icon-size);
+    height: var(--toolbar-icon-size);
     stroke: currentColor;
 }
-

@@ -1,15 +1,15 @@
 .rock-name {
     position: fixed;
-    top: 20px;
-    right: 20px;              /* coin haut-droite, hors sidebar */
+    top: var(--ui-offset);
+    right: var(--ui-offset);             /* coin haut-droite */
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: var(--ui-gap);
     background: var(--color-panel);
     color: var(--color-primary);
-    padding: 8px 14px;
-    border-radius: 12px;
-    font-size: 0.85rem;
+    padding: var(--ui-padding) calc(var(--ui-padding) * 1.75);
+    border-radius: var(--ui-radius);
+    font-size: var(--font-scale);
     font-weight: 600;
     font-family: var(--font-base);
     box-shadow: var(--shadow-ui);
@@ -21,7 +21,7 @@
 }
 
 .rock-name .icon {
-    width: 18px;
-    height: 18px;
+    width: var(--icon-size);
+    height: var(--icon-size);
     stroke: var(--color-primary);
 }
