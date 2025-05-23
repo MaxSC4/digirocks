@@ -1,7 +1,7 @@
 {
   "name": "digirock3d_dev",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "homepage": "https://maxsc4.github.io/digirocks",
   "scripts": {
@@ -10,11 +10,15 @@
     "preview": "vite preview",
     "test": "vitest",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "convert-models": "node --experimental-specifier-resolution=node scripts/convert-models.js"
   },
   "devDependencies": {
     "gh-pages": "^6.3.0",
+    "glob": "^11.0.2",
+    "gltf-pipeline": "^4.1.0",
     "jsdom": "^26.1.0",
+    "obj2gltf": "^3.1.6",
     "vite": "^6.3.1",
     "vitest": "^3.1.4"
   },

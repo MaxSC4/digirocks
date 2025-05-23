@@ -1,52 +1,71 @@
-import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
+import { OBJLoader }  from 'three/examples/jsm/loaders/OBJLoader.js';
+import { MTLLoader }  from 'three/examples/jsm/loaders/MTLLoader.js';
+
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('/draco/');
+dracoLoader.setWorkerLimit(4);
+
+const gltfLoader = new GLTFLoader();
+gltfLoader.setDRACOLoader(dracoLoader);
 
 /**
- * Charge un fichier MTL et retourne le matériau.
- * @param {string} path – dossier
- * @param {string} file – nom du .mtl
- * @returns {Promise<THREE.MaterialCreator>}
+ * Charge un .glb (draco) et renvoie la scène interne.
+ * @param {string} url - URL vers le fichier .glb
+ * @returns {Promise<THREE.Object3D>}
  */
-export function loadMTLAsync(path, file) {
-    const loader = new MTLLoader().setPath(path);
-    return new Promise((res, rej) => loader.load(file, res, undefined, rej));
+export async function loadGLBAsync(url) {
+    const gltf = await gltfLoader.loadAsync(url);
+    return gltf.scene;
 }
 
 /**
- * Charge un fichier OBJ avec les matériaux donnés.
- * @param {string} path
- * @param {string} file
- * @param {THREE.MaterialCreator} materials
- * @returns {Promise<THREE.Group>}
+ * Fallback : charge OBJ + MTL comme avant.
  */
-export function loadOBJAsync(path, file, materials) {
-    const loader = new OBJLoader();
-    loader.setMaterials(materials).setPath(path);
-    return new Promise((res, rej) => loader.load(file, res, undefined, rej));
+export async function loadOBJAsync(path, code, name) {
+    const mtlLoader = new MTLLoader().setPath(path);
+    const materials = await new Promise((res, rej) =>
+        mtlLoader.load(`${code}-${name}.mtl`, res, undefined, rej)
+    );
+    materials.preload();
+
+    const objLoader = new OBJLoader();
+    objLoader.setMaterials(materials).setPath(path);
+    const object = await new Promise((res, rej) =>
+        objLoader.load(`${code}-${name}.obj`, res, undefined, rej)
+    );
+    return object;
 }
 
 /**
- * Charge le modèle complet (.mtl + .obj), l'ajoute à la scène et renvoie l'objet.
+ * Charge et insère un modèle dans la scène.  
+ * Priorité au GLB compressé, sinon fallback OBJ/MTL.
  * @param {{ path, code, nom }} rock
  * @param {THREE.Scene} scene
  * @returns {Promise<THREE.Object3D>}
  */
 export async function loadModel(rock, scene) {
-    const mtlName = `${rock.code}-${rock.nom}.mtl`;
-    const materials = await loadMTLAsync(rock.path, mtlName);
-    materials.preload();
+    const glbUrl = `${rock.path}/${rock.code}-${rock.nom}.glb`;
+    const useGLB = await urlExists(glbUrl);
+    let model;
 
-    const objName = `${rock.code}-${rock.nom}.obj`;
-    const object = await loadOBJAsync(rock.path, objName, materials);
+    if (useGLB) {
+        model = await loadGLBAsync(glbUrl);
+    } else {
+        model = await loadOBJAsync(rock.path, rock.code, rock.nom);
+    }
 
     if (scene.userData.currentModel) {
+        disposeHierarchy(scene.userData.currentModel);
         scene.remove(scene.userData.currentModel);
     }
-    scene.add(object);
-    scene.userData.currentModel = object;
 
-    return object;
+    scene.add(model);
+    scene.userData.currentModel = model;
+
+    return model;
 }
 
 /**
@@ -76,4 +95,26 @@ export function configureCameraForModel(model, camera, controls, scene, { cmPerU
 
     scene.userData.initialCameraPosition = camera.position.clone();
     scene.userData.initialCameraTarget = new THREE.Vector3(0, 0, 0);
+}
+
+async function urlExists(url) {
+    try {
+        const res = await fetch(url, { method: 'HEAD' });
+        return res.ok;
+    } catch {
+        return false;
+    }
+}
+
+function disposeHierarchy(root) {
+    root.traverse((node) => {
+        if (node.isMesh) {
+            node.geometry.dispose();
+            if (Array.isArray(node.material)) {
+                node.material.forEach((m) => m.dispose());
+            } else {
+                node.material.dispose();
+            }
+        }
+    });
 }
