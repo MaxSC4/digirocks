@@ -154,12 +154,6 @@ export function show2DMeasurePopup(p1, p2, state, cmPerUnit, container) {
     popup.style.top  = `${midY}px`;
     container.appendChild(popup);
 
-    popup.querySelector('.close-anno')
-        .addEventListener('click', () => {
-            popup.remove()
-            clearAllMeasures();
-        });
-
     return popup;
 }
 

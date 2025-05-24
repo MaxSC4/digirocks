@@ -197,7 +197,6 @@ export async function init2DViewer(container){
 
     function onMeasure2DMouseMove(event) {
         if (measurePoints2D.length !== 1) return;
-        console.log('preview mousemove');
         const rect = img.getBoundingClientRect();
         const x = (event.clientX - rect.left) / state.scale;
         const y = (event.clientY - rect.top)  / state.scale;
@@ -272,6 +271,11 @@ export async function init2DViewer(container){
                 document.getElementById('popup2DContainer')
             );
             measurePoints2D = [];
+
+            measurePopup2D.querySelector('.close-anno').addEventListener('click', () => {
+                measurePopup2D.remove();
+                clearAllMeasures();
+            });
         } 
     })
 }
