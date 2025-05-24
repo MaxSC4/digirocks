@@ -262,6 +262,11 @@ export async function init2DViewer(container){
             if (previewMarker2D) zoneSvg.removeChild(previewMarker2D);
             previewLine2D   = null;
             previewMarker2D = null;
+
+            const [x2, y2] = measurePoints2D[1];
+            const m2 = draw2DMarker(zoneSvg, { x: x2, y: y2 }, state);
+            measureMarkers2D.push(m2);
+
             measureLine2D = draw2DLine(zoneSvg, measurePoints2D[0], measurePoints2D[1], state, measureLine2D);
             measurePopup2D = show2DMeasurePopup(
                 measurePoints2D[0],
