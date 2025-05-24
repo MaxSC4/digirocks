@@ -4,6 +4,7 @@ import { setupToolbarActions } from './utils/toolbar.js';
 import { THIN_SECTION_EXTENSIONS, imageExists } from './utils/ioUtils.js';
 import { createMagnifier } from './utils/magnifierUtils.js';
 
+
 import {
     draw2DMarker,
     draw2DLine,
@@ -19,15 +20,26 @@ import {
     computeCentroid
 } from './utils/annotation2DUtils.js';
 
+import {
+    enableAngleMeasure,
+    disableAngleMeasure
+} from './utils/angleMeasurementUtils.js';
+
+import { showToast } from "./utils/toastUtils.js";
+
 export async function init2DViewer(container){
 
     let measure2DActive = false;
     let measurePoints2D = [];
     let measureMarkers2D = [];
+
     let measureLine2D = null;
     let measurePopup2D = null;
+
     let previewLine2D = null;
     let previewMarker2D = null;
+
+    let angleActive = false;
 
     container.innerHTML = '';
 
@@ -128,6 +140,22 @@ export async function init2DViewer(container){
         },
         toggleClass: 'active',
         toastMsg: 'Mesure rectiligne'
+    },
+    {
+        id: 'angle2DBtn',
+        handler: () => {
+            if (angleActive) {
+                disableAngleMeasure();
+                angleActive = false;
+                showToast('Angle : annulé');
+            } else {
+                enableAngleMeasure(panZoomLayer, zoneSvg, popupLayer, state);
+                angleActive = true;
+                showToast('Angle : placez le point A');
+            }
+        },
+        toggleClass: 'active',
+        toastMsg: ''
     }
     ]);
 
