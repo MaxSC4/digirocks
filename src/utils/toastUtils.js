@@ -1,3 +1,5 @@
+let toastTimeout = null;
+
 /**
  * Affiche un toast avec le message donné.
  * @param {string} message
@@ -10,7 +12,12 @@ export function showToast(message) {
     text.textContent = message;
     toast.classList.add('show');
 
-    setTimeout(() => {
+    if (toastTimeout !== null) {
+        clearTimeout(toastTimeout);
+    }
+
+    toastTimeout = setTimeout(() => {
         toast.classList.remove('show');
+        toastTimeout = null;
     }, 2500);
 }
