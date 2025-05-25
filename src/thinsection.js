@@ -3,7 +3,7 @@ import { applyTransform, bindPanZoomEvents } from './utils/transformUtils.js';
 import { setupToolbarActions } from './utils/toolbar.js';
 import { THIN_SECTION_EXTENSIONS, imageExists } from './utils/ioUtils.js';
 import { createMagnifier } from './utils/magnifierUtils.js';
-
+import { capture2DWithScale } from './utils/screenshotUtils.js';
 
 import {
     draw2DMarker,
@@ -98,14 +98,13 @@ export async function init2DViewer(container){
     },
     {
         id: 'captureThinScreenshot',
-        handler: () => {
-        const wrapperEl = container.querySelector('.ts-viewer');
-        html2canvas(wrapperEl).then(canvas => {
+        handler: async () => {
+            const wrapper = container.querySelector('.ts-viewer');
+            const dataURL = await capture2DWithScale(wrapper);
             const link = document.createElement('a');
             link.download = `lame-mince-${Date.now()}.png`;
-            link.href = canvas.toDataURL();
+            link.href = dataURL;
             link.click();
-        });
         },
         toastMsg: 'Capture téléchargée'
     },
