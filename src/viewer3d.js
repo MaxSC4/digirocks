@@ -8,6 +8,8 @@ import { performRaycast, performRaycastOnObjects } from '../src/utils/raycast.js
 import { createMeasurementLine, createPopup } from '../src/utils/measurementUtils.js';
 import { computeViewportHeight, computeLengthFromPixels } from '../src/utils/scaleUtils.js';
 import { CAMERA_VIEWS, computeCameraPosition } from '../src/utils/viewUtils.js';
+import { capture3DWithScale } from './utils/screenshotUtils.js';
+
 
 import {
     loadJSON,
@@ -204,11 +206,10 @@ export function init3DViewer(canvas) {
             if (measurePopup) measurePopup.remove(), measurePopup = null;
             }, toggleClass: 'active', toastMsg: "Mesure" 
         },
-        { id: 'captureView',    handler: () => {
-            renderer.render(scene, camera);
-            const dataURL = renderer.domElement.toDataURL('image/png');
+        { id: 'captureView', handler: async () => {
             const nomRoche = window.rocheActuelle?.nom || 'capture';
             const fileName = `${nomRoche}_capture.png`;
+            const dataURL  = await capture3DWithScale(renderer, scene, camera);
             const a = document.createElement('a');
             a.href = dataURL;
             a.download = fileName;
