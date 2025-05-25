@@ -1,71 +1,60 @@
-<div align="center">
+# 🪨 RockViewer
 
-<a href="" target="_blank" title="Go to  website">
-<img width="196px" alt="RV - RockViewer" src="https://cdn.discordapp.com/attachments/1296914188777685044/1375204411344945292/Logotype_UPSaclay_BLANC.png?ex=6830d669&is=682f84e9&hm=7169c3ec9a0b0dc0ac4e5e460dc2ad8a184ca0fe2c213420cc727fb9e7761ede&">
-</a>
+**Interactive rock and thin section visualization in 2D and 3D, directly in the browser.**
 
-# RV - RockViewer
+---
 
-Visualize and measure your geological samples in 3D and 2D directly in the browser.
+## 📚 Overview
 
+**RockViewer** is an educational web application developed at the [GEOPS laboratory](https://www.geops.universite-paris-saclay.fr/) (Géosciences Paris-Saclay) for the Earth Sciences curriculum of **Université Paris-Saclay**.  
+Its goal is to provide geology students with a lightweight, interactive tool to:
 
-</div>
+- Explore rock samples and thin sections virtually
+- Measure, annotate, and analyze features
+- Practice petrography and 3D spatial reasoning skills
+- Generate visuals for lab reports or presentations
 
-<!-- LINKS_PLACEHOLDER -->
+The app runs entirely in the browser and requires no installation.
 
-<p align="center"><img src="https://cdn.discordapp.com/attachments/1296914188777685044/1375203517727248404/Screenshot_2025-05-22_220658.png?ex=6830d594&is=682f8414&hm=60d034fd5b03916150eeedc8e6d9df952ca8c24dc9e960f44dc4104e20813cc3&" alt="Main Image"/></p>
+> 🚀 Designed to support learning and teaching Earth Sciences in digital environments.
 
-<!-- TABLE_CONTENT_PLACEHOLDER -->
+---
 
-## About the Project
+## ✨ Features
 
-RockViewer lets you load OBJ/MTL 3D models and thin-section images, annotate points and zones, measure distances and areas, switch between light/dark themes, and capture screenshots. The 3D viewer provides orbit controls, orthographic views, ambient/directional lighting, dynamic scale bars and axes helpers. The 2D viewer supports pan/zoom, a circular magnifier, overlay annotations and HTML2Canvas screenshot export. Metadata from JSON files displays in a slide-out sidebar.
+### 🔍 2D Viewer for Thin Sections
+- Load JPEG/PNG images of thin-sections
+- Pan, zoom, and switch between dark/light modes
+- **Magnifying glass (loupe)** for high-resolution inspection
+- Add **labels and markers** directly on the image
+- Export annotated views as images (via `html2canvas`)
 
-## Features
+📷 _Example screenshot:_  
+![Screenshot 2D Viewer](./screenshots/2d_viewer_example.png)
 
-1. **3D Model Loading**
+---
 
-Import OBJ/MTL, center model automatically and adjust camera based on its bounding box.
+### 🧱 3D Model Viewer
+- Load 3D rock models in `.obj`/`.mtl` format
+- Use **[OrbitControls](https://threejs.org/docs/#examples/en/controls/OrbitControls)** to rotate and zoom
+- Accurate **1:1** scale
+- Visualize axes, scale bars, bounding boxes
 
-2. **Linear Measurement**
+📷 _Example screenshot:_  
+![Screenshot 3D Viewer](./screenshots/3d_viewer_example.png)
 
-Click once to place first marker, click again to draw a line and display distance in cm.
+---
 
-3. **Area Measurement**
+### 🧰 Interaction & Tools
+- 📏 **Distance and area measurement** tools (2D and 3D)
+- 🏷️ **Annotation system** with editable labels
+- 🌓 Theme toggle: Dark/Light mode
+- 📸 Export high-resolution screenshots (with overlays)
 
-Click successive points to form a polygon, compute and display area in cm².                  
+---
 
-4. **3D Annotations**
+## 🛠️ Tech Stack
 
-Sphere and mesh annotations with pop-up content and connector lines that follow the camera.
-
-5. **Dynamic Scale Bar**
-
-2D overlay showing real-world scale that updates with camera FOV and distance.
-
-6. **Screenshot Capture**
-
-Export the current 3D or 2D view as a PNG file.
-
-7. **2D Thin Section**
-
-Pan/zoom SVG-backed image, circular magnifier, point and polygon annotations with pop-ups.
-
-8. **Light/Dark Theme**
-
-Toggle between themes; colors and shadows adapt via CSS variables and data-theme attribute.
-
-9. **Metadata Sidebar**
-
-Fetch and render sample metadata from JSON in a slide-out panel.
-
-10. **Responsive & Fullscreen**
-
-Adapts to window resize, toggle fullscreen mode for immersive viewing. 
-
-
-
-## Stack Tech
 - [![JavaScript][JavaScript-badge]][JavaScript-url] - A high-level, dynamic programming language
 
 [JavaScript-badge]: https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript
@@ -78,11 +67,72 @@ Adapts to window resize, toggle fullscreen mode for immersive viewing.
 
 [HTML-badge]: https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html
 [HTML-url]: }
+- [Three.js](https://threejs.org/) – 3D rendering
+- [Vite](https://vitejs.dev/) – fast development build tool
+- [Vitest](https://vitest.dev/) – unit testing
+- [html2canvas](https://html2canvas.hertzen.com/) – screenshot capture
 
+---
 
+## 🧠 Implementation Highlights
 
-## About the Author
+- **Custom orbit and orthographic camera controls**
+- Dynamic scale bars and coordinate axes with real-time updates
+- Magnifier component built with canvas overlays and clipping paths
+- Measurement tools using DOM and 3D space projections
+- Annotation system supporting drag, edit, and delete
 
-**Maxime SOARES CORREIA**
+---
 
-This project was created by Maxime SOARES CORREIA. Connect with me on [GitHub](https://github.com/MaxSC4)  to learn more about my projects and professional background.
+## 📁 Project Structure
+
+```bash
+.
+├── public/               # Static assets (models, images, icons)
+├── scripts/              # Core logic: tools, controls, utilities
+├── src/
+│   ├── components/       # UI components (viewers, panels, toolbars)
+│   ├── styles/           # Custom styles
+│   ├── main.js           # Entry point
+│   └── config.js         # Default parameters
+├── tests/                # Unit & UI tests
+├── index.html            # HTML entry point
+├── vite.config.js        # Build tool configuration
+└── vitest.config.js      # Testing setup
+```
+
+---
+
+## 🖼️ Institutional Credits
+
+Developed with the support of:
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://www.regef.fr/wp-content/uploads/2023/01/LOGO-GEOPS-2020-1024x488-1.jpg" alt="GEOPS Logo" height="60"/>
+    </td>
+    <td align="center">
+      <img src="https://logowik.com/content/uploads/images/paris-saclay-university1609.jpg" alt="Université Paris-Saclay Logo" height="60"/>
+    </td>
+  </tr>
+</table>
+
+---
+
+## 👤 Author & Maintainer
+
+**Maxime SC.**  
+🌍 Earth Sciences student at Université Paris-Saclay  
+🔗 [LinkedIn](https://www.linkedin.com/in/maxime-sc/)  
+📧 maxime.soares-correia@université-paris-saclay.fr
+
+---
+
+## ✅ TODO
+
+- [ ] Add multilingual support (EN/FR)
+- [ ] Expand to mobile/tablet touch controls
+- [ ] Add file format support for `.ply` and `.stl`
+- [ ] Improve annotation export formats (e.g., GeoJSON)
+
