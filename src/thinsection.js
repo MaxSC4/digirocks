@@ -25,6 +25,11 @@ import {
     disableAngleMeasure
 } from './utils/angleMeasurementUtils.js';
 
+import {
+    enableSurfaceMeasure,
+    disableSurfaceMeasure
+} from './utils/surfaceMeasurementUtils.js';
+
 import { showToast } from "./utils/toastUtils.js";
 
 export async function init2DViewer(container){
@@ -40,6 +45,8 @@ export async function init2DViewer(container){
     let previewMarker2D = null;
 
     let angleActive = false;
+
+    let surfaceActive = false;
 
     container.innerHTML = '';
 
@@ -156,6 +163,24 @@ export async function init2DViewer(container){
         },
         toggleClass: 'active',
         toastMsg: ''
+    },
+    {
+        id: 'surface2DBtn',
+        handler: () => {
+            const btn = document.getElementById('surface2DBtn');
+            if (surfaceActive) {
+                disableSurfaceMeasure();
+                surfaceActive = false;
+                btn.classList.remove('active');
+                showToast('Surface : annulé');
+            } else {
+                enableSurfaceMeasure(panZoomLayer, zoneSvg, popupLayer, state, window.cmPerUnit || 1);
+                surfaceActive = true;
+                btn.classList.add('active');
+            }
+        },
+        toggleClass: 'active',
+        toastMsg: 'Mesure de surface'
     }
     ]);
 
