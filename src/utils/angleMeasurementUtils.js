@@ -1,4 +1,6 @@
 import { showToast } from './toastUtils.js';
+import { getImageCoordinates } from './coordsUtils.js';
+
 
 /**
  * État interne de la mesure d’angle :
@@ -35,7 +37,7 @@ export function enableAngleMeasure(panZoomLayer, zoneSvg, popupLayer, state) {
     _cleanup = cleanup;
 
     function onClick(e) {
-        const pt = screenToImage(e, state);
+        const pt = getImageCoordinates(e, panZoomLayer, state);
         if (phase === 1) {
             A = pt;
             markerA = drawCircle(angleGroup, pt, state, 'blue');
@@ -59,14 +61,14 @@ export function enableAngleMeasure(panZoomLayer, zoneSvg, popupLayer, state) {
 
     function onMouseMove(e) {
         if (phase === 2) {
-            const p = screenToImage(e, state);
+            const p = getImageCoordinates(e, panZoomLayer, state);
             if (lineAB) angleGroup.removeChild(lineAB);
             if (markerB) angleGroup.removeChild(markerB);
             lineAB = drawLine(angleGroup, A, p, state, 'rgba(0, 0, 255, 0.5)');
             markerB = drawCircle(angleGroup, p, state, 'rgba(0, 0, 255, 0.5)');
         }
         if (phase === 3) {
-            const p = screenToImage(e, state);
+            const p = getImageCoordinates(e, panZoomLayer, state);
             if (lineBC) angleGroup.removeChild(lineBC);
             lineBC = drawLine(angleGroup, B, p, state, 'rgba(255, 0, 0, 0.5)');
         }
@@ -99,16 +101,6 @@ export function enableAngleMeasure(panZoomLayer, zoneSvg, popupLayer, state) {
         _cleanup = null;
     }
     }
-
-
-/** INTERN UTILS **/
-function screenToImage(e, state) {
-    const rect = e.currentTarget.getBoundingClientRect();
-    return [
-        (e.clientX - rect.left - state.translate.x) / state.scale,
-        (e.clientY - rect.top  - state.translate.y) / state.scale
-    ];
-}
 
 function drawCircle(svg, [x, y], state, color) {
     const cx = x * state.scale + state.translate.x;

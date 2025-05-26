@@ -1,4 +1,6 @@
 import { showToast } from './toastUtils';
+import { getImageCoordinates } from './coordsUtils.js';
+
 
 /**
  * Calcule l’aire d’un polygone donné en coords image (non transformées).
@@ -50,9 +52,7 @@ export function enableSurfaceMeasure(panZoomLayer, zoneSvg, popupLayer, state, c
 }
 
 function onClick(e) {
-    const rect = panZoomLayerSM.getBoundingClientRect();
-    const x = (e.clientX - rect.left - stateSM.translate.x) / stateSM.scale;
-    const y = (e.clientY - rect.top  - stateSM.translate.y) / stateSM.scale;
+    const [x, y] = getImageCoordinates(e, panZoomLayerSM, stateSM);
 
     if (pointsSM.length >= 3) {
         const [x0, y0] = pointsSM[0];

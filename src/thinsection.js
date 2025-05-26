@@ -5,6 +5,7 @@ import { THIN_SECTION_EXTENSIONS, imageExists } from './utils/ioUtils.js';
 import { createMagnifier } from './utils/magnifierUtils.js';
 import { capture2DWithScale } from './utils/screenshotUtils.js';
 import { initLightModeSwitcher } from './utils/lightModeUtils.js';
+import { getImageCoordinates } from './utils/coordsUtils.js';
 
 import {
     draw2DMarker,
@@ -271,28 +272,22 @@ export async function init2DViewer(container){
 
     function onMeasure2DMouseMove(event) {
         if (measurePoints2D.length !== 1) return;
-        const rect = img.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / state.scale;
-        const y = (event.clientY - rect.top)  / state.scale;
+        const [x, y] = getImageCoordinates(event, img, state);
 
-        // écran coords du point 1
         const [x1, y1] = measurePoints2D[0];
         const x1p = x1 * state.scale + state.translate.x;
         const y1p = y1 * state.scale + state.translate.y;
-        // écran coords du point courant
         const x2p = x * state.scale + state.translate.x;
         const y2p = y * state.scale + state.translate.y;
 
-        // previewLine2D (mise à jour ou création)
         previewLine2D = draw2DLine(zoneSvg,
         [x1, y1], [x, y], state, previewLine2D
         );
-        // previewMarker2D
         if (!previewMarker2D) {
-        previewMarker2D = draw2DMarker(zoneSvg, {x, y}, state);
+            previewMarker2D = draw2DMarker(zoneSvg, {x, y}, state);
         } else {
-        previewMarker2D.setAttribute('cx', x2p);
-        previewMarker2D.setAttribute('cy', y2p);
+            previewMarker2D.setAttribute('cx', x2p);
+            previewMarker2D.setAttribute('cy', y2p);
         }
     }
 
@@ -317,9 +312,7 @@ export async function init2DViewer(container){
     panZoomLayer.addEventListener('click', (event) => {
         if (!measure2DActive) return;
 
-        const rect = img.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / state.scale;
-        const y = (event.clientY - rect.top)  / state.scale;
+        const [x, y] = getImageCoordinates(event, img, state);
 
         measurePoints2D.push([x,y]);
 
