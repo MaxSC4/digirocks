@@ -4,6 +4,7 @@ import { setupToolbarActions } from './utils/toolbar.js';
 import { THIN_SECTION_EXTENSIONS, imageExists } from './utils/ioUtils.js';
 import { createMagnifier } from './utils/magnifierUtils.js';
 import { capture2DWithScale } from './utils/screenshotUtils.js';
+import { initLightModeSwitcher } from './utils/lightModeUtils.js';
 
 import {
     draw2DMarker,
@@ -180,11 +181,29 @@ export async function init2DViewer(container){
         },
         toggleClass: 'active',
         toastMsg: 'Mesure de surface'
+    },
+    {
+        id: 'toggleLightMode2D',
+        handler: () => {
+            lightSwitcher?.toggle();
+        },
+        toggleClass: 'active',
+        toastMsg: ''
     }
     ]);
 
     img.src = thinSectionURL;
-    img.onload = () => updateTransform();
+
+    let lightSwitcher;
+    img.onload = async () => {
+        updateTransform();
+
+        lightSwitcher = await initLightModeSwitcher(
+            container.querySelector('.ts-viewer'),
+            rock.path,
+            state
+        );
+    };
 
     let annotationsVisible2D = true;
 
