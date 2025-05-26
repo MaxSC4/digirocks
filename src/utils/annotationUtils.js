@@ -136,8 +136,18 @@ export function attachAnnotationPopup(html, screenPos, container, worldPos, came
     function updateFrame() {
         const proj = worldPos.clone().project(camera);
 
-        const px = (proj.x * 0.5 + 0.5) * window.innerWidth;
-        const py = (-proj.y * 0.5 + 0.5) * window.innerHeight;
+        let px = (proj.x * 0.5 + 0.5) * window.innerWidth;
+        let py = (-proj.y * 0.5 + 0.5) * window.innerHeight;
+
+        const w = popup.offsetWidth;
+        const h = popup.offsetHeight;
+        const minX = w / 2;
+        const maxX = window.innerWidth - w / 2;
+        const minY = h;
+        const maxY = window.innerHeight;
+        px = Math.min(Math.max(px, minX), maxX);
+        py = Math.min(Math.max(py, minY), maxY);
+        
         popup.style.left = `${px}px`;
         popup.style.top = `${py}px`;
 
