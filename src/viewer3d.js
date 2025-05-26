@@ -10,7 +10,6 @@ import { computeViewportHeight, computeLengthFromPixels } from '../src/utils/sca
 import { CAMERA_VIEWS, computeCameraPosition } from '../src/utils/viewUtils.js';
 import { capture3DWithScale } from './utils/screenshotUtils.js';
 
-
 import {
     loadJSON,
     createPointAnnotationMesh,
@@ -214,7 +213,8 @@ export function init3DViewer(canvas) {
             a.href = dataURL;
             a.download = fileName;
             a.click();
-        }, toastMsg: "Capture téléchargée"},
+        }, toastMsg: "Capture téléchargée"
+        },
         { id: 'viewTop',    handler: () => setCameraTo(CAMERA_VIEWS.TOP)},
         { id: 'viewFront',  handler: () => setCameraTo(CAMERA_VIEWS.FRONT)},
         { id: 'viewSide',   handler: () => setCameraTo(CAMERA_VIEWS.SIDE)},

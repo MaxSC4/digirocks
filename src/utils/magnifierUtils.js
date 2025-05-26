@@ -1,3 +1,5 @@
+import { getImageCoordinates } from "./coordsUtils.js";
+
 /**
  * Créé un élément « loupe » et renvoie une fonction de gestion du mousemove.
  * @param {HTMLImageElement} imgEl          – l’image source à zoomer
@@ -42,10 +44,9 @@ export function createMagnifier(imgEl, state, {
         lastDraw = now;
 
         const { scale, translate } = state;
-        const rect = imgEl.getBoundingClientRect();
 
-        const sx = (e.clientX - rect.left - translate.x) / scale;
-        const sy = (e.clientY - rect.top  - translate.y) / scale;
+        const [sx, sy] = getImageCoordinates(e, imgEl, state);
+        
         const effectiveZoom = zoomFactor * scale;
         const srcSize = size / effectiveZoom;
 

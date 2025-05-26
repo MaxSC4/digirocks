@@ -37,6 +37,7 @@
     font-family: var(--font-base);
     z-index: 150;
     pointer-events: none;        /* pas d’interaction quand fermée */
+    overflow-y: auto;
 }
 
 .meta-sidebar.open {

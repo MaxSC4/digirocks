@@ -17,8 +17,12 @@ export async function loadJSON(url) {
  * @returns {THREE.Mesh}
  */
 export function createPointAnnotationMesh(annotation) {
-    const geom = new THREE.SphereGeometry(0.005, 16, 16);
-    const mat = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+    const geom = new THREE.SphereGeometry(0.002, 16, 16);
+    const mat = new THREE.MeshBasicMaterial({ 
+        color: 0xff0000, 
+        opacity: 0.25,
+        transparent: true
+    });
     const mesh = new THREE.Mesh(geom, mat);
     mesh.position.set(...annotation.position);
     mesh.name = `annotation-${annotation.id}`;
@@ -27,29 +31,52 @@ export function createPointAnnotationMesh(annotation) {
 }
 
 /**
- * Crée un mesh pour une annotation de type zone (polygon).
- * @param {object} annotation – doit avoir { id, points: [[x,y,z], …] }
+ * Construit une BufferGeometry triangulée à partir d’un polygone défini
+ * par ses points 3D. On part du principe que tous les sommets sont coplanaires.
+ * @param {Array<[number,number,number]>} points3D
+ * @returns {THREE.BufferGeometry}
+ */
+function buildSurfaceGeometry(points3D) {
+    const vertices = [];
+    const p0 = points3D[0];
+
+    for (let i = 1; i < points3D.length - 1; i++){
+        const p1 = points3D[i];
+        const p2 = points3D[i + 1];
+        vertices.push(
+            p0[0], p0[1], p0[2],
+            p1[0], p1[1], p1[2],
+            p2[0], p2[1], p2[2]
+        );
+    }
+
+    const geom = new THREE.BufferGeometry();
+    geom.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    geom.computeVertexNormals();
+    return geom;
+}
+
+/**
+ * Crée un mesh pour une annotation de type zone (polygon),
+ * directement à partir des points 3D.
+ * @param {{ id: string, points: Array<[number,number,number]> }} annotation
  * @returns {THREE.Mesh}
  */
 export function createZoneAnnotationMesh(annotation) {
-    const shape = new THREE.Shape();
-    annotation.points.forEach((p, i) => {
-        const v = new THREE.Vector3(p[0], p[2]);
-        i === 0 ? shape.moveTo(v.x, v.y) : shape.lineTo(v.x, v.y);
-    });
+    const geom = buildSurfaceGeometry(annotation.points);
 
-    const geom = new THREE.ShapeGeometry(shape);
     const mat = new THREE.MeshBasicMaterial({
         color: 0xff8800,
         transparent: true,
-        opacity: 0.25,
+        opacity: 0.25, 
         side: THREE.DoubleSide,
-        depthWrite: false
+        depthWrite: false,
+        polygonOffset: true,
+        polygonOffsetFactor: -2,
+        polygonOffsetUnits: 1
     });
 
     const mesh = new THREE.Mesh(geom, mat);
-    mesh.rotation.x = -Math.PI / 2;
-    mesh.position.y = annotation.points[0][1];
     mesh.userData.annotation = annotation;
     return mesh;
 }
@@ -65,7 +92,7 @@ export function buildAnnotationPopupHTML(annotation) {
         <div>
         <button class="close-anno">&times;</button>
         ${title ? `<h4>${title}</h4>` : ''}
-        ${text  ? `<p>${text}</p>` : ''}
+        ${text  ? `<div>${text}</div>` : ''}
         ${image ? `<img src="${image}" style="max-width:100%;border-radius:6px;" />` : ''}
         </div>
     `;

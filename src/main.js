@@ -31,8 +31,11 @@ const {
 let viewer3DInitialized = false;
 let viewer2DInitialized = false;
 
+//await initI18n();
+
 // 3D
 btn3D.addEventListener('click', () => {
+    
     show3DView({ canvas3D, viewer2D, btn3D, btn2D, thinUI, toolbar, toggleBg });
 
     if (!viewer3DInitialized) {

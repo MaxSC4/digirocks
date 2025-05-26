@@ -3,55 +3,45 @@
         "id": "anno-001",
         "type": "point",
         "viewer": "3D",
-        "position": [0.12, 0.03, 0.22],
+        "position": [-0.02770428850756998, 0.009991727154816499, -0.03030840446680272],
         "linkedTo": "UPS-DST-MM3",
         "content": {
-            "title": "Cristal de pyroxène",
-            "text": "Structure prismatique caractéristique",
+            "title" : "Biotite",
+            "text": "Cristal de biotite au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LN.jpg' width='250'><img src='/public/models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LP.jpg' width='250'>",
             "image": null
         }
     },
-
     {
         "id": "anno-002",
         "type": "point",
         "viewer": "3D",
-        "position": [0, 0, 0],
+        "position": [0.015926185130564367, 0.010561391629220093, 0.025433305311034715],
         "linkedTo": "UPS-DST-MM3",
         "content": {
-            "title": "Cristal de quartz",
-            "text": "Je sais pas",
+            "title" : "Pyroxène",
+            "text": "Cristal de pyroxène au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' width='250'><img src='/public/models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' width='250'>",
             "image": null
         }
     },
-
     {
         "id": "anno-003",
         "type": "zone",
         "viewer": "3D",
         "points": [
-            [0.01, 0.00, -0.01],
-            [0.02, 0.00, -0.02],
-            [0.03, 0.00, -0.01],
-            [0.025, 0.00, 0.005]
+            [-0.06340545918193269, -0.007489366351035276, 0.030030773067456495],
+            [-0.06483685199414607, -0.0004540372635351911, 0.026191843187838737],
+            [-0.0647939968611084, 0.00536833990769423, 0.023082009502577328],
+            [-0.05815366373200178, 0.0065705565519978745, 0.022800701108892207],
+            [-0.0565922811784149, 0.002960938321289434, 0.02493229931334362],
+            [-0.054860484362405294, 0.0005602863914507938, 0.02634565141227463],
+            [-0.05597285938724066, -0.0026875771561501276, 0.028028371840052246],
+            [-0.05604027874578377, -0.006930717410585867, 0.03009948562121023],
+            [-0.0628571311455434, -0.008119565518799547, 0.0303239346707892]
         ],
         "linkedTo": "UPS-DST-MM3",
         "content": {
-            "title": "Zone altérée",
-            "text": "Altération hydrothermale visible par changement de teinte.",
-            "image": null
-        }
-    },
-
-    {
-        "id": "anno-004",
-        "type": "point",
-        "viewer": "2D",
-        "position": [0, 0],
-        "linkedTo":"UPS-DST-MM3",
-        "content": {
-            "title": "Quartz automorphe",
-            "text": "Grain bien formé dans la matrice.",
+            "title": "Sanidine",
+            "text": "Cristal de sanidine au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LN.jpg' width='250'><img src='/public/models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LP.jpg' width='250'>",
             "image": null
         }
     },

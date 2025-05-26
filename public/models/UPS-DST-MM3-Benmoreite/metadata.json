@@ -9,18 +9,24 @@
         "description": {
             "title": "Description",
             "icon": "info",
-            "content": "Roche volcanique alcaline, généralement noire à gris foncé, contenant des feldspaths et de l’olivine."
+            "content": "Roche volcanique n°UPS-DST-MM3"
         },
 
         "lieu": {
             "title": "Lieu de prélèvement",
             "icon": "map-pin",
-            "content": "Île de Benmore, Ecosse"
+            "content": "<div>Massif Central, France<br>Roc de Courlande (63)<br><img src='models/UPS-DST-MM3-Benmoreite/images/carte_geol.png' alt='Roc de Courlande' style='max-width: 100%; height: auto;'></div>"
         },
 
-        "geoHtml": {
-            "title": "Diagramme TAS",
+        "composition": {
+            "title": "Composition",
             "icon": "flask-conical",
+            "content": "<img src='models/UPS-DST-MM3-Benmoreite/images/Analyse_Benmoreite.png' style='max-width:100%;' />"
+        },
+
+        "tas": {
+            "title": "Diagramme TAS",
+            "icon": "chart-scatter",
             "content": "<img src='models/UPS-DST-MM3-Benmoreite/images/TAS_classification.png' style='max-width:100%;' />"
         }
     }

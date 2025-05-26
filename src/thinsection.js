@@ -275,8 +275,10 @@ export async function init2DViewer(container){
         const [x, y] = getImageCoordinates(event, img, state);
 
         const [x1, y1] = measurePoints2D[0];
+
         const x1p = x1 * state.scale + state.translate.x;
         const y1p = y1 * state.scale + state.translate.y;
+        
         const x2p = x * state.scale + state.translate.x;
         const y2p = y * state.scale + state.translate.y;
 
