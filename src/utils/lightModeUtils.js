@@ -21,7 +21,7 @@ async function findVariant(path, baseName, suffixes) {
  * - rock.path : dossier contenant TS.png et TS_pol.png (ou autre suffixe)
  * - state : { scale, translate } pour réappliquer le transform
  */
-export async function initLightModeSwitcher(wrapper, rockPath, state) {
+export async function initLightModeSwitcher(panZoomLayer, rockPath, state) {
     const NAT_SUFFIXES = [''];
     const POL_SUFFIXES = ['_pol', '-pol'];
 
@@ -31,21 +31,16 @@ export async function initLightModeSwitcher(wrapper, rockPath, state) {
     if (!natURL) throw new Error('Aucune image en lumière naturelle trouvée');
     if (!polURL) showToast('Pas d\'image en lumière polarisée trouvée');
 
-    const imgNat = document.createElement('img');
-    imgNat.src = natURL;
-    imgNat.style.position = 'absolute';
-    imgNat.style.top = imgNat.style.left = '0';
-    imgNat.style.transformOrigin = '0 0';
-    imgNat.style.willChange = 'transform';
-    imgNat.draggable = false;
-    imgNat.style.userSelect = 'none';
-
-    const imgPol = imgNat.cloneNode();
-    imgPol.src = polURL;
-    imgPol.style.display = 'none';
-
-    wrapper.appendChild(imgNat);
-    wrapper.appendChild(imgPol);
+    const img = panZoomLayer.querySelector('img.ts-image');
+    if (!img) throw new Error("No .ts-image found for lightModeSwitcher");
+    
+    img.src = natURL;
+    let hasPol = false;
+    if(polURL) {
+        const pre = new Image();
+        pre.src = polURL;
+        hasPol = true;
+    }
 
     function update() {
         const { scale, translate } = state;
@@ -58,14 +53,12 @@ export async function initLightModeSwitcher(wrapper, rockPath, state) {
 
     let mode = 'nat';
     function toggle() {
-        if (mode === 'nat' && polURL) {
-            imgNat.style.display = 'none';
-            imgPol.style.display = 'block';
-            showToast('Lumière polarisée');
+        if (mode === 'nat' && hasPol) {
+            img.src = polURL;
             mode = 'pol';
+            showToast('Lumière polarisée');
         } else {
-            imgPol.style.display = 'none';
-            imgNat.style.display = 'block';
+            img.src = natURL;
             showToast('Lumière naturelle');
             mode = 'nat';
         }

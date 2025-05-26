@@ -198,11 +198,14 @@ export async function init2DViewer(container){
     img.onload = async () => {
         updateTransform();
 
-        lightSwitcher = await initLightModeSwitcher(
-            container.querySelector('.ts-viewer'),
-            rock.path,
-            state
-        );
+        if (!lightSwitcher) {
+            lightSwitcher = await initLightModeSwitcher(
+                panZoomLayer,
+                rock.path,
+                state
+            );
+        }
+
     };
 
     let annotationsVisible2D = true;
