@@ -7,7 +7,7 @@
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title" : "Biotite",
-            "text": "Cristal de biotite au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LN.jpg' width='250'><img src='/public/models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LP.jpg' width='250'>",
+            "text": "Cristal de biotite au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LN.jpg' width='350'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LP.jpg' width='350'>",
             "image": null
         }
     },
@@ -19,7 +19,7 @@
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title" : "Pyroxène",
-            "text": "Cristal de pyroxène au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' width='250'><img src='/public/models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' width='250'>",
+            "text": "Cristal de pyroxène au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' width='350'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' width='350'>",
             "image": null
         }
     },
@@ -41,7 +41,30 @@
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title": "Sanidine",
-            "text": "Cristal de sanidine au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LN.jpg' width='250'><img src='/public/models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LP.jpg' width='250'>",
+            "text": "Cristal de sanidine au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LN.jpg' width='350'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LP.jpg' width='350'>",
+            "image": null
+        }
+    },
+
+    {
+        "id": "anno-004",
+        "type": "zone",
+        "viewer": "3D",
+        "points": [
+            [0.0009828716459991471, 0.038069862073656, -0.04319181620281809],
+            [-0.006176937333572313, 0.03570515904691596, -0.042245506548832856],
+            [-0.01388180492417613, 0.009398264511792726, -0.02958654568874186],
+            [-0.0167560687726548, 0.004882286654087308, -0.027440349367025996],
+            [-0.01730942209093137, -0.011274251993864795, -0.019542551913962813],
+            [-0.01233863643870116, -0.01495636689899538, -0.017626716827500055],
+            [-0.005561674694240704, -0.003704977955417339, -0.022956045068964426],
+            [0.0006213808537599641, 0.017976092210541823, -0.03338829964285095],
+            [0.0022550413880522598, 0.035648188893820904, -0.04197345346372949]
+        ],
+        "linkedTo": "UPS-DST-MM3",
+        "content": {
+            "title": "Xénolithe de Basalte",
+            "text": "Diagramme TAS d'un basalte standard<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.png' width='350'>",
             "image": null
         }
     },

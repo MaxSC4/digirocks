@@ -27,7 +27,7 @@
         "tas": {
             "title": "Diagramme TAS",
             "icon": "chart-scatter",
-            "content": "<img src='models/UPS-DST-MM3-Benmoreite/images/TAS_classification.png' style='max-width:100%;' />"
+            "content": "<img src='models/UPS-DST-MM3-Benmoreite/images/TAS_UPS-DST-MM3.png' style='max-width:100%;' />"
         }
     }
 }
