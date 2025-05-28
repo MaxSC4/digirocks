@@ -176,7 +176,9 @@ export function init3DViewer(canvas) {
     function animate() {
         requestAnimationFrame(animate);
         controls.update();
-        updateScale2D();
+        if (canvas.classList.contains('active')) {
+            updateScale2D();
+        }
         renderer.render(scene, camera);
     }
 

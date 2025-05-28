@@ -208,8 +208,9 @@ export async function init2DViewer(container){
                 state
             );
         }
-
     };
+
+    window.cmPerUnit = compute2DLengthFromPixels(1, img.naturalWidth, 4.5);
 
     let annotationsVisible2D = true;
 
@@ -235,19 +236,37 @@ export async function init2DViewer(container){
         const bar = document.querySelector('.scale-bar');
         const label = document.querySelector('.scale-label');
         const img = container.querySelector('img.ts-image');
+
         if (!bar || !label || !img.naturalWidth) return;
-        const cm = compute2DLengthFromPixels(
-            bar.clientWidth,
+
+        const screenPx = bar.clientWidth;
+
+        const imagePx = screenPx / state.scale;
+
+        const realCm = compute2DLengthFromPixels(
+            imagePx,
             img.naturalWidth,
             4.5
-        );
+        )
 
-        label.textContent = `${cm.toFixed(2)} cm`;
+        let text;
+        if (realCm >= 1) {
+            text = `${realCm.toFixed(2)} cm`;
+        } else if (realCm >= 0.01) {
+            text = `${(realCm * 10000).toFixed(1)} µm`
+        } else if (realCm >= 0.0001) {
+            text = `${(realCm * 10000).toFixed(0)} µm`
+        } else {
+            text = `< 1 µm`
+        }
+
+        label.textContent = text;
     }
 
     function updateTransform(){
         applyTransform(panZoomLayer, state);
         window.tsTransform = {...state};
+        update2DScale();
         update2DPopups(popups2D, state);
     }
 
