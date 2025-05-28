@@ -7,7 +7,7 @@
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title" : "Biotite",
-            "text": "Cristal de biotite au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LN.jpg' width='350'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LP.jpg' width='350'>",
+            "text": "Cristal de biotite au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LN.jpg' width='400'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LP.jpg' width='400'>",
             "image": null
         }
     },
@@ -18,8 +18,8 @@
         "position": [0.015926185130564367, 0.010561391629220093, 0.025433305311034715],
         "linkedTo": "UPS-DST-MM3",
         "content": {
-            "title" : "Pyroxène",
-            "text": "Cristal de pyroxène au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' width='350'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' width='350'>",
+            "title" : "Clinopyroxène - Augite aegyrinique",
+            "text": "Cristal d'augite aegyrinique au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' class='clickable-image' alt='Clinopyroxène (Augite aegynirique) en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' data-caption='Clinopyroxène (Augite aegynirique) en lumière naturelle' width='400'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' width='400'>",
             "image": null
         }
     },
@@ -41,7 +41,7 @@
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title": "Sanidine",
-            "text": "Cristal de sanidine au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LN.jpg' width='350'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LP.jpg' width='350'>",
+            "text": "Cristal de sanidine au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LN.jpg' width='400'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LP.jpg' width='400'>",
             "image": null
         }
     },

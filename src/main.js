@@ -7,6 +7,7 @@ import { bindInitialLoad } from './utils/initUtils.js';
 import { renderRockList } from './utils/rockListUtils.js';
 import { showToast }       from './utils/toastUtils.js';
 import { bindThemeToggle } from './utils/themeUtils.js';
+import { initImageModal } from './utils/imageModalUtils.js';
 
 import {
     show3DView,
@@ -83,7 +84,10 @@ bindThemeToggle({ themeToggleBtn, htmlRoot });
 
 // Binding initial : création des icônes + clic 3D par défaut
 bindInitialLoad({
-    onDomReady: () => createIcons({ icons }),
+    onDomReady: () => {
+        createIcons({ icons })
+        initImageModal('.clickable-image')
+    }, 
     onLoad:     () => btn3D.click()
 });
 

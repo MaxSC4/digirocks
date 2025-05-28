@@ -21,9 +21,9 @@
     <link rel="stylesheet" href="src/styles/components/rock-list.css">
     <link rel="stylesheet" href="src/styles/components/popup.css">
     <link rel="stylesheet" href="src/styles/components/toast.css">
+    <link rel="stylesheet" href="src/styles/components/modal.css">
 
     <link rel="stylesheet" href="src/styles/mobile.css">
-
 
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -231,6 +231,12 @@
     <div id="toast" class="toast-message">
       <svg class="icon" data-lucide="alert-circle"></svg>
       <span id="toastText"></span>
+    </div>
+
+    <div id="image-modal" class="modal" aria-hidden="true" role="dialog">
+      <button class="modal-close" aria-label="Fermer la fenêtre">&times;</button>
+      <img class="modal-content" id="modal-img" alt="">
+      <div id="modal-caption"></div>
     </div>
 
     <!-- JS principal -->
