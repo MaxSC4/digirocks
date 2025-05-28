@@ -21,3 +21,15 @@ export function computeViewportHeight(fovDeg, depth) {
 export function computeLengthFromPixels(pixelLength, screenHeightPx, viewportHeight){
     return pixelLength / (screenHeightPx / viewportHeight);
 }
+
+/**
+ * Convertit une longueur en pixels en cm pour la lame mince,
+ * en supposant que l'image complète fait realWidthCm en vrai.
+ * @param {number} pixelLength
+ * @param {number} imageWidthPx - largeur naturelle de l'image en px 
+ * @param {number} realWidthCm - largeur physique de la lame mince en cm
+ * @returns {number} longueur en cm
+ */
+export function compute2DLengthFromPixels(pixelLength, imageWidthPx, realWidthCm){
+    return pixelLength * realWidthCm / imageWidthPx;
+}

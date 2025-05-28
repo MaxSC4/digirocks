@@ -6,6 +6,7 @@ import { createMagnifier } from './utils/magnifierUtils.js';
 import { capture2DWithScale } from './utils/screenshotUtils.js';
 import { initLightModeSwitcher } from './utils/lightModeUtils.js';
 import { getImageCoordinates } from './utils/coordsUtils.js';
+import { compute2DLengthFromPixels } from "./utils/scaleUtils.js";
 
 import {
     draw2DMarker,
@@ -198,6 +199,7 @@ export async function init2DViewer(container){
     let lightSwitcher;
     img.onload = async () => {
         updateTransform();
+        update2DScale();
 
         if (!lightSwitcher) {
             lightSwitcher = await initLightModeSwitcher(
@@ -222,11 +224,26 @@ export async function init2DViewer(container){
 
     bindPanZoomEvents(panZoomLayer, state, () => {
         applyTransform(panZoomLayer, state);
+        update2DScale();
         update2DPopups(popups2D, state);
     }, {
         minScale: 0.2,
         maxScale: 5
     });
+
+    function update2DScale() {
+        const bar = document.querySelector('.scale-bar');
+        const label = document.querySelector('.scale-label');
+        const img = container.querySelector('img.ts-image');
+        if (!bar || !label || !img.naturalWidth) return;
+        const cm = compute2DLengthFromPixels(
+            bar.clientWidth,
+            img.naturalWidth,
+            4.5
+        );
+
+        label.textContent = `${cm.toFixed(2)} cm`;
+    }
 
     function updateTransform(){
         applyTransform(panZoomLayer, state);
