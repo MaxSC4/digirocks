@@ -137,9 +137,20 @@ export function show2DMeasurePopup(p1, p2, state, cmPerUnit, container) {
     if (old) old.remove();
 
     // distance px → cm
-    const dx = (p2[0] - p1[0]) * state.scale * cmPerUnit;
-    const dy = (p2[1] - p1[1]) * state.scale * cmPerUnit;
-    const dist = Math.hypot(dx, dy).toFixed(1);
+    const dx = (p2[0] - p1[0]);
+    const dy = (p2[1] - p1[1]);
+    const distUnits = Math.hypot(dx, dy);
+
+    const distCm = distUnits * cmPerUnit;
+
+    const distUm = distCm * 10000;
+    let text;
+    if (distUm <= 300) {
+        text = `${distUm.toFixed(1)} µm`;
+    } else {
+        const distMm = distUm / 1000;
+        text = `${distMm.toFixed(2)} mm`;
+    }
 
     // position midpoint in screen px
     const midX = ((p1[0] + p2[0])/2) * state.scale + state.translate.x;
@@ -148,7 +159,7 @@ export function show2DMeasurePopup(p1, p2, state, cmPerUnit, container) {
     const popup = document.createElement('div');
     popup.className = 'ts-popup';
     popup.setAttribute('data-2d-measure','');
-    popup.innerHTML = `<button class="close-anno">&times;</button><div>${dist} cm</div>`;
+    popup.innerHTML = `<button class="close-anno">&times;</button><div>${text}</div>`;
     popup.style.position = 'absolute';
     popup.style.left = `${midX}px`;
     popup.style.top  = `${midY}px`;

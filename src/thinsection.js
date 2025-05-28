@@ -34,6 +34,7 @@ import {
 } from './utils/surfaceMeasurementUtils.js';
 
 import { showToast } from "./utils/toastUtils.js";
+import { Cpu } from "lucide";
 
 export async function init2DViewer(container){
 
@@ -248,15 +249,16 @@ export async function init2DViewer(container){
             4.5
         )
 
+        //let text;
+
+
         let text;
-        if (realCm >= 1) {
-            text = `${realCm.toFixed(2)} cm`;
-        } else if (realCm >= 0.01) {
-            text = `${(realCm * 10000).toFixed(1)} µm`
-        } else if (realCm >= 0.0001) {
-            text = `${(realCm * 10000).toFixed(0)} µm`
+        const distUm = realCm * 10000;
+        if (distUm <= 300) {
+            text = `${distUm.toFixed(1)} µm`;
         } else {
-            text = `< 1 µm`
+            const distMm = distUm / 1000;
+            text = `${distMm.toFixed(2)} mm`;
         }
 
         label.textContent = text;
