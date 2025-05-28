@@ -200,6 +200,7 @@ export async function init2DViewer(container){
     img.onload = async () => {
         updateTransform();
         update2DScale();
+        window.cmPerUnit = 4.5 / img.naturalWidth;
 
         if (!lightSwitcher) {
             lightSwitcher = await initLightModeSwitcher(
@@ -209,8 +210,6 @@ export async function init2DViewer(container){
             );
         }
     };
-
-    window.cmPerUnit = compute2DLengthFromPixels(1, img.naturalWidth, 4.5);
 
     let annotationsVisible2D = true;
 

@@ -77,27 +77,6 @@ function setup3DEnvironment(canvas, {
     return { scene, camera, renderer, controls, axesHelper };
 }
 
-function updateActiveAnnotations(activeAnnotations, camera) {
-    activeAnnotations.forEach((item) => {
-        const newPoint = new THREE.Vector3(
-            item.screen.x,
-            item.screen.y,
-            0.5
-        ).unproject(camera);
-
-        item.line.geometry.setFromPoints([
-            item.pos,
-            newPoint
-        ]);
-
-        const screenX = (item.screen.x * 0.5 + 0.5) * window.innerWidth;
-        const screenY = (-item.screen.y * 0.5 + 0.5) * window.innerHeight;
-
-        item.popup.style.left = `${screenX}px`;
-        item.popup.style.top = `${screenY}px`
-    });
-}
-
 export function init3DViewer(canvas) {
     const initialCameraPosition = new THREE.Vector3(0, 0, 5);
 
