@@ -1,0 +1,12 @@
+.for‐screenshot .scale-bar,
+.for‐screenshot .scale-bar::before {
+    background-color: rgba(255,255,255,1) !important;
+}
+
+.for‐screenshot .scale-label {
+    color: white !important;
+}
+
+.for‐screenshot .screenshot-overlay {
+    background-color: rgba(0,0,0,0.7) !important;
+}
