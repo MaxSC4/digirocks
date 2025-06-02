@@ -71,6 +71,9 @@ export async function init2DViewer(container){
     }
 
     const { viewer, panZoomLayer, img, zoneSvg, annotationLayer, popupLayer } = setup2DEnvironment(container);
+    const state = { scale: 1, translate: {x: 0, y: 0} };
+
+
 
     setupToolbarActions([
     {
@@ -220,7 +223,6 @@ export async function init2DViewer(container){
     let loupeElement = null;
     let magnifierHandler = null;
 
-    const state = { scale: 1, translate: { x: 0, y: 0 } };
     window.tsTransform = state;
 
     bindPanZoomEvents(panZoomLayer, state, () => {
@@ -248,9 +250,6 @@ export async function init2DViewer(container){
             img.naturalWidth,
             4.5
         )
-
-        //let text;
-
 
         let text;
         const distUm = realCm * 10000;
@@ -309,24 +308,19 @@ export async function init2DViewer(container){
 
     function onMeasure2DMouseMove(event) {
         if (measurePoints2D.length !== 1) return;
-        const [x, y] = getImageCoordinates(event, img, state);
 
+        const [x, y] = getImageCoordinates(event, viewer, state);
         const [x1, y1] = measurePoints2D[0];
 
-        const x1p = x1 * state.scale + state.translate.x;
-        const y1p = y1 * state.scale + state.translate.y;
-        
-        const x2p = x * state.scale + state.translate.x;
-        const y2p = y * state.scale + state.translate.y;
-
-        previewLine2D = draw2DLine(zoneSvg,
-        [x1, y1], [x, y], state, previewLine2D
+        previewLine2D = draw2DLine(
+            zoneSvg, [x1, y1], [x, y], state, previewLine2D
         );
+
         if (!previewMarker2D) {
             previewMarker2D = draw2DMarker(zoneSvg, {x, y}, state);
         } else {
-            previewMarker2D.setAttribute('cx', x2p);
-            previewMarker2D.setAttribute('cy', y2p);
+            previewMarker2D.setAttribute('cx', x);
+            previewMarker2D.setAttribute('cy', y);
         }
     }
 
@@ -351,7 +345,7 @@ export async function init2DViewer(container){
     panZoomLayer.addEventListener('click', (event) => {
         if (!measure2DActive) return;
 
-        const [x, y] = getImageCoordinates(event, img, state);
+        const [x, y] = getImageCoordinates(event, viewer, state);
 
         measurePoints2D.push([x,y]);
 

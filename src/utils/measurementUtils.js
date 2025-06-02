@@ -79,12 +79,10 @@ export function createPopup(innerHTML, screenPos, container) {
  */
 export function draw2DMarker(svg, imgPoint, state) {
     const { x, y } = imgPoint;
-    const cx = x * state.scale + state.translate.x;
-    const cy = y * state.scale + state.translate.y;
 
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    circle.setAttribute('cx', cx);
-    circle.setAttribute('cy', cy);
+    circle.setAttribute('cx', x);
+    circle.setAttribute('cy', y);
     circle.setAttribute('r', '5');
     circle.setAttribute('fill', 'red');
     circle.setAttribute('pointer-events', 'none');
@@ -105,16 +103,12 @@ export function draw2DLine(svg, p1, p2, state, existingLine = null) {
     if (existingLine) svg.removeChild(existingLine);
 
     const [x1, y1] = p1, [x2, y2] = p2;
-    const x1p = x1 * state.scale + state.translate.x;
-    const y1p = y1 * state.scale + state.translate.y;
-    const x2p = x2 * state.scale + state.translate.x;
-    const y2p = y2 * state.scale + state.translate.y;
 
     const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    line.setAttribute('x1', x1p);
-    line.setAttribute('y1', y1p);
-    line.setAttribute('x2', x2p);
-    line.setAttribute('y2', y2p);
+    line.setAttribute('x1', x1);
+    line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2);
+    line.setAttribute('y2', y2);
     line.setAttribute('stroke','red');
     line.setAttribute('stroke-width','2');
     line.setAttribute('pointer-events','none');
