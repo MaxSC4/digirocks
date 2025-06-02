@@ -1,17 +1,3 @@
-newmtl Solid
-Ka 1.0 1.0 1.0
-Kd 1.0 1.0 1.0
-Ks 0.0 0.0 0.0
-d 1.0
-Ns 0.0
-illum 0
-
-newmtl UPS-DST-MM17-Tephrite
-Ka 1.0 1.0 1.0
-Kd 1.0 1.0 1.0
-Ks 0.0 0.0 0.0
-d 1.0
-Ns 0.0
-illum 0
-map_Kd UPS-DST-MM17-Tephrite.jpg
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:7eb00eed48ef65cda2ccd111c246f85d740fc7b718394a9dac13cfea1f716648
+size 226

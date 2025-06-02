@@ -1,17 +1,3 @@
-newmtl Solid
-Ka 1.0 1.0 1.0
-Kd 1.0 1.0 1.0
-Ks 0.0 0.0 0.0
-d 1.0
-Ns 0.0
-illum 0
-
-newmtl UPS-DST-MM3-Benmoreite
-Ka 1.0 1.0 1.0
-Kd 1.0 1.0 1.0
-Ks 0.0 0.0 0.0
-d 1.0
-Ns 0.0
-illum 0
-map_Kd UPS-DST-MM3-Benmoreite.jpg
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:ca8847df38c87799670d4d089f1a66facb1ae0df96fac0b8643a6fda35fcbfd9
+size 228

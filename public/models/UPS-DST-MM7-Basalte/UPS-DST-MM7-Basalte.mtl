@@ -1,17 +1,3 @@
-newmtl Solid
-Ka 1.0 1.0 1.0
-Kd 1.0 1.0 1.0
-Ks 0.0 0.0 0.0
-d 1.0
-Ns 0.0
-illum 0
-
-newmtl UPS-DST-MM7-Basalte
-Ka 1.0 1.0 1.0
-Kd 1.0 1.0 1.0
-Ks 0.0 0.0 0.0
-d 1.0
-Ns 0.0
-illum 0
-map_Kd UPS-DST-MM7-Basalte.jpg
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:abb0e69735114ffa18c44132da21ef1efaa2a056b76902adaccf39f400a6adb3
+size 222
