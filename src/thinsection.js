@@ -342,9 +342,9 @@ export async function init2DViewer(container){
     }
 
     panZoomLayer.addEventListener('click', (event) => {
-        if (!measure2DActive) return;
-
         const [x, y] = getImageCoordinates(event, viewer, state);
+        console.log('clic brut en coords image:', x, y);
+        if (!measure2DActive) return;
 
         measurePoints2D.push([x,y]);
 

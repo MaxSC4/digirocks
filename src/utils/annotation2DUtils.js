@@ -13,8 +13,8 @@ export function createAnnotationPoint2D(annotation, state) {
     const point = document.createElement('div');
     point.className = 'ts-anno-point';
     point.style.position = 'absolute';
-    point.style.width    = '10px';
-    point.style.height   = '10px';
+    point.style.width    = '35px';
+    point.style.height   = '35px';
     point.style.borderRadius = '50%';
     point.style.background   = '#ff0000';
     point.style.border       = '2px solid white';

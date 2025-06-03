@@ -67,5 +67,41 @@
             "text": "Diagramme TAS d'un basalte standard<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.png' class='clickable-image' alt='Diagramme TAS d'un basalte standard' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.jpg' data-caption='Diagramme TAS d'un Basalte standard' width='250'>",
             "image": null
         }
+    },
+    {
+        "id": "anno-005",
+        "type": "point",
+        "viewer": "2D",
+        "position": [9051.831589753503 , 2387.3305481114467],
+        "linkedTo": "UPS-DST-MM3",
+        "content": {
+            "title" : "Hornblende",
+            "text": "Cristal d'hornblende (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Hornblende1_LN.jpg' class='clickable-image' alt='Hornblende en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Hornblende1_LN.jpg' data-caption='Hornblende en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Hornblende1_LP.jpg' class='clickable-image' alt='Hornblende en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Hornblende1_LP.jpg' data-caption='Hornblende en lumière polarisée'  width='250'>",
+            "image": null
+        }
+    },
+    {
+        "id": "anno-006",
+        "type": "point",
+        "viewer": "2D",
+        "position": [6860.191406653332, 4373.685679979191],
+        "linkedTo": "UPS-DST-MM3",
+        "content": {
+            "title" : "Augite aegyrinique (Cpx)",
+            "text": "Cristal d'augite aegynirique (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegyrinique1_LN.jpg' class='clickable-image' alt='Augite aegyrinique en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique1_LN.jpg' data-caption='Augite aegynirique en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique1_LP.jpg' class='clickable-image' alt='Augite aegynirique en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique1_LP.jpg' data-caption='Augite aegynirique en lumière polarisée'  width='250'>",
+            "image": null
+        }
+    },
+    {
+        "id": "anno-007",
+        "type": "point",
+        "viewer": "2D",
+        "position": [2405.9844805408316 , 7585.346494393582],
+        "linkedTo": "UPS-DST-MM3",
+        "content": {
+            "title" : "Zircon",
+            "text": "Cristal de zircon (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Zircon1_LN.jpg' class='clickable-image' alt='Zircon en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Zircon1_LN.jpg' data-caption='Zircon en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Zircon1_LP.jpg' class='clickable-image' alt='Zircon en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Zircon1_LP.jpg' data-caption='Zircon en lumière polarisée'  width='250'>",
+            "image": null
+        }
     }
 ]
