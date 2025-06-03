@@ -10,3 +10,9 @@
 .for‐screenshot .screenshot-overlay {
     background-color: rgba(0,0,0,0.7) !important;
 }
+
+.for-screenshot .scale-bar,
+.for-screenshot .scale-label {
+    background-color: #ffffff !important;
+    color: #ffffff     !important;
+}

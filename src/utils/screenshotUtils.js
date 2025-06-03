@@ -64,6 +64,36 @@ export async function capture2DWithScale(wrapper) {
         ctx.fillText(label.textContent, relLabel.x, relLabel.y + relLabel.h);
     }
 
+    const bottomBarHeight = 40;
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+    ctx.fillRect(0, canvas.height - bottomBarHeight, canvas.width, bottomBarHeight);
+
+    const sampleName = window.rocheActuelle?.sampleName || 'Inconnu';
+    const rockCode = window.rocheActuelle?.code || '—';
+    ctx.font = '16px sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.textBaseline = 'middle';
+
+    let scaleText = label ? label.textContent : '';
+    const leftMargin = 10;
+    let x = leftMargin;
+    const y = canvas.height - bottomBarHeight / 2;
+
+    // Texte échelle
+    if (scaleText) {
+        ctx.fillText(scaleText, x, y);
+        x += ctx.measureText(scaleText).width + 20;
+    }
+
+    // Echantillon : sampleName
+    const sampelText = `Échantillon : ${sampleName}`;
+    ctx.fillText(sampelText, x, y);
+    x += ctx.measureText(sampelText).width + 20;
+
+    // ID : rockCode
+    const idText = `ID : ${rockCode}`;
+    ctx.fillText(idText, x, y);
+
     // 4. Nettoie la classe après la capture
     wrapper.classList.remove('for-screenshot');
 
@@ -131,7 +161,39 @@ export async function capture3DWithScale(renderer, scene, camera) {
         );
     }
 
-    // 5. Nettoie la classe après la capture
+     // 5. Bande inférieure noire
+    const bottomBarHeight = 40;
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+    ctx.fillRect(0, off.height - bottomBarHeight, off.width, bottomBarHeight);
+
+    // 6. Texte “Échantillon” et “ID”
+    const sampleName = window.rocheActuelle?.sampleName || 'Inconnu';
+    const rockCode   = window.rocheActuelle?.code || '—';
+    ctx.font      = '16px sans-serif';
+    ctx.fillStyle = '#ffffff';
+    ctx.textBaseline = 'middle';
+
+    let scaleText = label ? label.textContent : '';
+    const leftMargin = 10;
+    let x = leftMargin;
+    const y = off.height - bottomBarHeight / 2;
+
+    // 6.a. Échelle (si existant)
+    if (scaleText) {
+        ctx.fillText(scaleText, x, y);
+        x += ctx.measureText(scaleText).width + 20;
+    }
+
+    // 6.b. “Échantillon : sampleName”
+    const sampleText = `Échantillon : ${sampleName}`;
+    ctx.fillText(sampleText, x, y);
+    x += ctx.measureText(sampleText).width + 20;
+
+    // 6.c. “ID : rockCode”
+    const idText = `ID : ${rockCode}`;
+    ctx.fillText(idText, x, y);
+
+    // 7. Nettoie la classe après la capture
     document.body.classList.remove('for-screenshot');
 
     return off.toDataURL('image/png');
