@@ -106,8 +106,7 @@ export async function init2DViewer(container){
     {
         id: 'captureThinScreenshot',
         handler: async () => {
-            const wrapper = container.querySelector('.ts-viewer');
-            const dataURL = await capture2DWithScale(wrapper);
+            const dataURL = await capture2DWithScale(viewer);
             const link = document.createElement('a');
             link.download = `lame-mince-${Date.now()}.png`;
             link.href = dataURL;

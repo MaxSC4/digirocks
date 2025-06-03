@@ -1,104 +1,128 @@
 import html2canvas from 'html2canvas';
 
 /**
- * Capture un screenshot du wrapper 2D ET y incruste
- * la barre d'échelle .scale-ui et son label.
- * @param {HTMLElement} wrapper – l’élément .ts-viewer
- * @returns {Promise<string>} dataURL PNG
+ * Capture a screenshot of the 2D viewer (.ts-viewer) plus a footer bar at the bottom
+ * containing:
+ *   • a white scale‐bar of the same on-screen pixel width
+ *   • the scale value text (e.g. “3.2 cm”)
+ *   • “| Échantillon : <sampleName> | ID : <rockCode>”
+ *
+ * This entire footer is rendered into an OFF‐SCREEN clone of the viewer so that
+ * the real viewer never “flashes” the footer. Once html2canvas finishes, we remove
+ * the clone and return the PNG dataURL.
+ *
+ * @param {HTMLElement} wrapper
+ *   The original `<div class="ts-viewer">…</div>` returned by setup2DEnvironment.
+ * @returns {Promise<string>}
+ *   A PNG dataURL of the final screenshot.
  */
 export async function capture2DWithScale(wrapper) {
-    // 1. Force la barre d'échelle et son texte en blanc via CSS
-    wrapper.classList.add('for-screenshot');
-
-    // 2. Capture html2canvas du wrapper
-    const canvas = await html2canvas(wrapper, {
+    // 1) Gather “live” scale‐bar metrics from the real DOM:
+    const liveBar = document.querySelector('.scale-bar');
+    const liveLabel = document.querySelector('.scale-label');
+    if (!liveBar || !liveLabel) {
+        // If no scale UI is found, just snapshot wrapper directly:
+        console.warn('[capture2DWithScale] could not find .scale-bar or .scale-label. Doing a direct snapshot.');
+        const fallbackCanvas = await html2canvas(wrapper, {
         backgroundColor: null,
         logging: false,
         useCORS: true,
         width: wrapper.clientWidth,
         height: wrapper.clientHeight
+        });
+        return fallbackCanvas.toDataURL('image/png');
+    }
+
+    const barRect = liveBar.getBoundingClientRect();
+    const labelText = liveLabel.textContent?.trim() || '';
+
+    // 2) Grab sampleName and rockCode:
+    const sampleName = window.rocheActuelle?.sampleName || '';
+    const rockCode   = window.rocheActuelle?.code       || '';
+
+    // 3) Clone the entire viewer. This clone will be positioned off‐screen so the user never sees it.
+    const cloneViewer = wrapper.cloneNode(true);
+    cloneViewer.style.position = 'fixed';
+    cloneViewer.style.top      = '-200%';
+    cloneViewer.style.left     = '-200%';
+    cloneViewer.style.opacity  = '1'; // Must be “visible” to html2canvas, but off‐screen so it never actually shows.
+
+    // 4) Build a “footer” DIV at the bottom of the clone – exactly like the 3D footer
+    const footer = document.createElement('div');
+    footer.className = 'screenshot-footer';
+    Object.assign(footer.style, {
+        position: 'absolute',
+        bottom: '0',
+        left: '0',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '4px 8px',
+        boxSizing: 'border-box',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)', // semi‐opaque black
+        zIndex: '9999'
     });
-    const ctx = canvas.getContext('2d');
 
-    // 3. Prépare le dessin de la barre et du label par-dessus
-    const bar   = document.querySelector('.scale-bar');
-    const label = document.querySelector('.scale-label');
-    if (bar && label) {
-        const wrapperRect = wrapper.getBoundingClientRect();
-        const barRect     = bar.getBoundingClientRect();
-        const labelRect   = label.getBoundingClientRect();
+    // 5) Create a white scale‐bar of the exact same pixel width/height as the live one:
+    const scaleBarClone = document.createElement('div');
+    Object.assign(scaleBarClone.style, {
+        width:  `${barRect.width}px`,
+        height: `${barRect.height}px`,
+        backgroundColor: '#ffffff',
+        flexShrink: '0'
+    });
 
-        const relBar   = {
-            x: barRect.left   - wrapperRect.left,
-            y: barRect.top    - wrapperRect.top,
-            w: barRect.width,
-            h: barRect.height
-        };
-        const relLabel = {
-            x: labelRect.left   - wrapperRect.left,
-            y: labelRect.top    - wrapperRect.top,
-            w: labelRect.width,
-            h: labelRect.height
-        };
+    // 6) Next, the scale‐value text (e.g. “3.2 cm”), in white:
+    const scaleTextClone = document.createElement('div');
+    scaleTextClone.textContent = labelText;
+    Object.assign(scaleTextClone.style, {
+        color: '#ffffff',
+        fontSize: '14px',
+        marginLeft: '8px',
+        whiteSpace: 'nowrap',
+        flexShrink: '0'
+    });
 
-        const padding = 6;
-        const x0 = Math.min(relBar.x, relLabel.x) - padding;
-        const y0 = Math.min(relBar.y, relLabel.y) - padding;
-        const x1 = Math.max(relBar.x + relBar.w, relLabel.x + relLabel.w) + padding;
-        const y1 = Math.max(relBar.y + relBar.h, relLabel.y + relLabel.h) + padding;
+    // 7) Finally, append the “| Échantillon : ... | ID : ...”:
+    const infoTextClone = document.createElement('div');
+    infoTextClone.textContent = `  |  Échantillon : ${sampleName}  |  ID : ${rockCode}`;
+    Object.assign(infoTextClone.style, {
+        color: '#ffffff',
+        fontSize: '14px',
+        marginLeft: '16px',
+        whiteSpace: 'nowrap'
+    });
 
-        // Fond noir semi-opaque
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-        ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
+    // 8) Assemble footer:
+    footer.appendChild(scaleBarClone);
+    footer.appendChild(scaleTextClone);
+    footer.appendChild(infoTextClone);
 
-        // Barre d'échelle (blanche grâce à .for-screenshot)
-        const barColor = getComputedStyle(bar).backgroundColor;
-        ctx.fillStyle = barColor;
-        ctx.fillRect(relBar.x, relBar.y, relBar.w, relBar.h);
+    // 9) Attach footer into our cloneViewer:
+    cloneViewer.appendChild(footer);
 
-        // Texte du label (blanc grâce à .for-screenshot)
-        const fontStyle = getComputedStyle(label).font;
-        const textColor = getComputedStyle(label).color;
-        ctx.font      = fontStyle;
-        ctx.fillStyle = textColor;
-        ctx.fillText(label.textContent, relLabel.x, relLabel.y + relLabel.h);
-    }
+    // 10) Insert cloneViewer into document.body, off‐screen:
+    document.body.appendChild(cloneViewer);
 
-    const bottomBarHeight = 40;
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-    ctx.fillRect(0, canvas.height - bottomBarHeight, canvas.width, bottomBarHeight);
+    // 11) Run html2canvas on the clone (which now has our footer at the bottom):
+    const canvas = await html2canvas(cloneViewer, {
+        backgroundColor: null,
+        logging: false,
+        useCORS: true,
+        width:  cloneViewer.clientWidth,
+        height: cloneViewer.clientHeight
+    });
 
-    const sampleName = window.rocheActuelle?.sampleName || 'Inconnu';
-    const rockCode = window.rocheActuelle?.code || '—';
-    ctx.font = '16px sans-serif';
-    ctx.fillStyle = '#ffffff';
-    ctx.textBaseline = 'middle';
+    // 12) Clean up the off‐screen clone immediately:
+    document.body.removeChild(cloneViewer);
 
-    let scaleText = label ? label.textContent : '';
-    const leftMargin = 10;
-    let x = leftMargin;
-    const y = canvas.height - bottomBarHeight / 2;
-
-    // Texte échelle
-    if (scaleText) {
-        ctx.fillText(scaleText, x, y);
-        x += ctx.measureText(scaleText).width + 20;
-    }
-
-    // Echantillon : sampleName
-    const sampelText = `Échantillon : ${sampleName}`;
-    ctx.fillText(sampelText, x, y);
-    x += ctx.measureText(sampelText).width + 20;
-
-    // ID : rockCode
-    const idText = `ID : ${rockCode}`;
-    ctx.fillText(idText, x, y);
-
-    // 4. Nettoie la classe après la capture
-    wrapper.classList.remove('for-screenshot');
-
+    // 13) Return the PNG dataURL:
     return canvas.toDataURL('image/png');
 }
+
+
+
+
 
 /**
  * Capture une image WebGL (renderer.domElement) et y incruste
@@ -125,75 +149,69 @@ export async function capture3DWithScale(renderer, scene, camera) {
     ctx.drawImage(glCanvas, 0, 0);
 
     // 4. Prépare le dessin de la barre et du label
-    const bar   = document.querySelector('.scale-bar');
-    const label = document.querySelector('.scale-label');
-    if (bar && label) {
-        const glRect    = glCanvas.getBoundingClientRect();
-        const barRect   = bar.getBoundingClientRect();
-        const labelRect = label.getBoundingClientRect();
+    const barEl   = document.querySelector('.scale-bar');
+    const labelEl = document.querySelector('.scale-label');
+    const sampleName = window.rocheActuelle?.sampleName || '';
+    const rockCode   = window.rocheActuelle?.code || '';
 
-        const x0 = Math.min(barRect.left, labelRect.left) - glRect.left - 6;
-        const y0 = Math.min(barRect.top,  labelRect.top)  - glRect.top  - 6;
-        const x1 = Math.max(barRect.right, labelRect.right) - glRect.left + 6;
-        const y1 = Math.max(barRect.bottom,labelRect.bottom) - glRect.top  + 6;
+    if (barEl && labelEl) {
+        // 5) Get on-screen sizes/positions
+        const glRect  = glCanvas.getBoundingClientRect();
+        const barRect = barEl.getBoundingClientRect();
+        const labelRect = labelEl.getBoundingClientRect();
+        const padding = 6;
 
-        // Fond noir semi-opaque
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-        ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
+        const relBarW      = barRect.width;
+        const relBarH      = barRect.height;
+        const rawFooterH   = relBarH + 2 * padding;
+        const minFooterCSS = 30;                 // enforce at least 30 CSS px
+        const footerHeight = Math.max(rawFooterH, minFooterCSS);
 
-        // Barre d'échelle (blanche grâce à .for-screenshot)
-        const barColor = getComputedStyle(bar).backgroundColor;
-        ctx.fillStyle = barColor;
-        ctx.fillRect(
-            barRect.left - glRect.left,
-            barRect.top  - glRect.top,
-            barRect.width,
-            barRect.height
-        );
+        // 6) As before, compute scale from CSS→canvas:
+        const scaleX = off.width  / glRect.width;
+        const scaleY = off.height / glRect.height;
+        const useScale = scaleX;
 
-        // Texte du label (blanc grâce à .for-screenshot)
-        ctx.font      = getComputedStyle(label).font;
-        ctx.fillStyle = getComputedStyle(label).color;
-        ctx.fillText(
-            label.textContent,
-            labelRect.left - glRect.left,
-            labelRect.top  - glRect.top  + labelRect.height
-        );
+        // 8) Convert to canvas px:
+        const footerPxH = footerHeight * useScale;
+        const footerTop = off.height - footerPxH;
+
+        // 9) Draw the black footer background
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+        ctx.fillRect(0, footerTop, off.width, footerPxH);
+
+        // 10) Draw the white scale bar in that footer:
+        const barCanvasW = relBarW * useScale;
+        const barCanvasH = relBarH * useScale;
+        const barCanvasX = padding * useScale;
+        const barCanvasY = footerTop + (footerPxH - barCanvasH) / 2;
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(barCanvasX, barCanvasY, barCanvasW, barCanvasH);
+
+        // 11) Draw the scale label next to the bar in white:
+        const fontMatch = getComputedStyle(labelEl).font.match(/([\d.]+)px\s*(.*)$/) || [];
+        let fontSizePx = 14, fontFamily = 'sans-serif';
+        if (fontMatch.length >= 3) {
+        fontSizePx  = parseFloat(fontMatch[1]);
+        fontFamily  = fontMatch[2];
+        }
+        ctx.font      = `${fontSizePx * useScale}px ${fontFamily}`;
+        ctx.fillStyle = '#ffffff';
+        ctx.textBaseline = 'middle';
+
+        const gapBetween = 8 * useScale;
+        const textX      = barCanvasX + barCanvasW + gapBetween;
+        const textY      = barCanvasY + barCanvasH / 2;
+        ctx.fillText(labelEl.textContent || '', textX, textY);
+
+        // 12) Draw “ | Échantillon : … | ID : …”
+        const suffix = `  |  Échantillon : ${sampleName}  |  ID : ${rockCode}`;
+        const baseTextWidth = ctx.measureText(labelEl.textContent || '').width;
+        ctx.fillText(suffix, textX + baseTextWidth + gapBetween, textY);
     }
 
-     // 5. Bande inférieure noire
-    const bottomBarHeight = 40;
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-    ctx.fillRect(0, off.height - bottomBarHeight, off.width, bottomBarHeight);
-
-    // 6. Texte “Échantillon” et “ID”
-    const sampleName = window.rocheActuelle?.sampleName || 'Inconnu';
-    const rockCode   = window.rocheActuelle?.code || '—';
-    ctx.font      = '16px sans-serif';
-    ctx.fillStyle = '#ffffff';
-    ctx.textBaseline = 'middle';
-
-    let scaleText = label ? label.textContent : '';
-    const leftMargin = 10;
-    let x = leftMargin;
-    const y = off.height - bottomBarHeight / 2;
-
-    // 6.a. Échelle (si existant)
-    if (scaleText) {
-        ctx.fillText(scaleText, x, y);
-        x += ctx.measureText(scaleText).width + 20;
-    }
-
-    // 6.b. “Échantillon : sampleName”
-    const sampleText = `Échantillon : ${sampleName}`;
-    ctx.fillText(sampleText, x, y);
-    x += ctx.measureText(sampleText).width + 20;
-
-    // 6.c. “ID : rockCode”
-    const idText = `ID : ${rockCode}`;
-    ctx.fillText(idText, x, y);
-
-    // 7. Nettoie la classe après la capture
+    // 13) Restore UI
     document.body.classList.remove('for-screenshot');
 
     return off.toDataURL('image/png');

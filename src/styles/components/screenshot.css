@@ -16,3 +16,23 @@
     background-color: #ffffff !important;
     color: #ffffff     !important;
 }
+
+.for-screenshot .scale-label {
+    font-weight: bold;
+}
+
+.scale-clone--for-snap .scale-bar {
+    background-color: #ffffff !important;
+}
+
+.scale-clone--for-snap .scale-label {
+    color: #ffffff !important;
+}
+
+.scale-clone--for-snap .scale-bar {
+    border-color: #ffffff !important;
+}
+
+.screenshot-footer {
+    font-family: 'Open Sans', sans-serif;
+}
