@@ -19,7 +19,7 @@
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title" : "Clinopyroxène - Augite aegyrinique",
-            "text": "Cristal d'augite aegyrinique au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' class='clickable-image' alt='Clinopyroxène (Augite aegynirique) en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' data-caption='Clinopyroxène (Augite aegynirique) en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' class='clickable-image' alt='Clinopyroxène (Augite aegynirique) en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' data-caption='Clinopyroxène (Augite aegynirique) en lumière polarisée'  width='250'>",
+            "text": "Cristal d'augite aegyrinique au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' class='clickable-image' alt='Clinopyroxène (Augite aegyrinique) en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' data-caption='Clinopyroxène (Augite aegyrinique) en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' class='clickable-image' alt='Clinopyroxène (Augite aegyrinique) en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' data-caption='Clinopyroxène (Augite aegyrinique) en lumière polarisée'  width='250'>",
             "image": null
         }
     },
@@ -64,7 +64,7 @@
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title": "Xénolithe de Basalte",
-            "text": "Diagramme TAS d'un basalte standard<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.png' class='clickable-image' alt='Diagramme TAS d'un basalte standard' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.jpg' data-caption='Diagramme TAS d'un Basalte standard' width='250'>",
+            "text": "Diagramme TAS d'un basalte standard<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.png' class='clickable-image' alt='Diagramme TAS d'un basalte standard' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.png' data-caption='Diagramme TAS d'un Basalte standard' width='250'>",
             "image": null
         }
     },
@@ -88,7 +88,7 @@
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title" : "Augite aegyrinique (Cpx)",
-            "text": "Cristal d'augite aegynirique (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegyrinique_LN.jpg' class='clickable-image' alt='Augite aegyrinique en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique_LN.jpg' data-caption='Augite aegynirique en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique_LP.jpg' class='clickable-image' alt='Augite aegynirique en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique_LP.jpg' data-caption='Augite aegynirique en lumière polarisée'  width='250'>",
+            "text": "Cristal d'augite aegyrinique (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx_AugiteAegyrinique_LN.jpg' class='clickable-image' alt='Augite aegyrinique en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx_AugiteAegyrinique_LN.jpg' data-caption='Augite aegyrinique en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx_AugiteAegyrinique_LP.jpg' class='clickable-image' alt='Augite aegyrinique en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx_AugiteAegyrinique_LP.jpg' data-caption='Augite aegyrinique en lumière polarisée'  width='250'>",
             "image": null
         }
     },
