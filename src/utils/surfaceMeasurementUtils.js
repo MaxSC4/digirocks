@@ -27,12 +27,13 @@ let _cleanupSM = null;
  * - mousemove pour prévisualiser le dernier segment
  * - clic sur le premier point (ou bouton) pour terminer
  */
-export function enableSurfaceMeasure(panZoomLayer, zoneSvg, popupLayer, state, cmPerUnit = 1) {
+export function enableSurfaceMeasure(panZoomLayer, zoneSvg, popupLayer, imgEl, state, cmPerUnit = 1) {
     stateSM = state;
     panZoomLayerSM = panZoomLayer;
     zoneSvgSM = zoneSvg;
     popupLayerSM = popupLayer;
     cmPerUnitSM = cmPerUnit;
+    imgElSM = imgEl;
 
     pointsSM = [];
     markersSM = [];
@@ -52,7 +53,7 @@ export function enableSurfaceMeasure(panZoomLayer, zoneSvg, popupLayer, state, c
 }
 
 function onClick(e) {
-    const [x, y] = getImageCoordinates(e, panZoomLayerSM, stateSM);
+    const [x, y] = getImageCoordinates(e, imgElSM, stateSM);
 
     if (pointsSM.length >= 3) {
         const [x0, y0] = pointsSM[0];
@@ -64,11 +65,9 @@ function onClick(e) {
     }
 
     pointsSM.push([x,y]);
-    const cx = x*stateSM.scale + stateSM.translate.x;
-    const cy = y*stateSM.scale + stateSM.translate.y;
     const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c.setAttribute('cx',cx);
-    c.setAttribute('cy',cy);
+    c.setAttribute('cx', x);
+    c.setAttribute('cy', y);
     c.setAttribute('r','4');
     c.setAttribute('fill','green');
     c.setAttribute('pointer-events','none');
@@ -83,15 +82,14 @@ function onMouseMove(e) {
     if (previewLineSM) zoneSvgSM.removeChild(previewLineSM);
 
     const rect = panZoomLayerSM.getBoundingClientRect();
-    const x = (e.clientX - rect.left - stateSM.translate.x) / stateSM.scale;
-    const y = (e.clientY - rect.top  - stateSM.translate.y) / stateSM.scale;
+
+    const [x, y] = getImageCoordinates(e, imgEl, stateSM);
     const last = pointsSM[pointsSM.length - 1];
+    const x1 = last[0], y1 = last[1];
+    const x2 = x, y2 = y;
 
     const line = document.createElementNS('http://www.w3.org/2000/svg','line');
-    const x1 = last[0]*stateSM.scale+stateSM.translate.x;
-    const y1 = last[1]*stateSM.scale+stateSM.translate.y;
-    const x2 = x*stateSM.scale+stateSM.translate.x;
-    const y2 = y*stateSM.scale+stateSM.translate.y;
+
     line.setAttribute('x1',x1);
     line.setAttribute('y1',y1);
     line.setAttribute('x2',x2);
@@ -105,7 +103,7 @@ function onMouseMove(e) {
 
 function updatePolygon() {
     const pointsAttr = pointsSM
-        .map(([x,y]) => `${x*stateSM.scale+stateSM.translate.x},${y*stateSM.scale+stateSM.translate.y}`)
+        .map(([x,y]) => `${x},${y}`)
         .join(' ');
     polygonSM.setAttribute('points', pointsAttr);
 }

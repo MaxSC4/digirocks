@@ -24,7 +24,7 @@ let _cleanup = null;
  * @param {HTMLElement} popupLayer    – container popups
  * @param {{ scale, translate }} state
  */
-export function enableAngleMeasure(panZoomLayer, zoneSvg, popupLayer, state) {
+export function enableAngleMeasure(panZoomLayer, zoneSvg, popupLayer, imgEl, state) {
     phase = 1;
 
     angleGroup = document.createElementNS('http://www.w3.org/2000/svg','g');
@@ -37,7 +37,7 @@ export function enableAngleMeasure(panZoomLayer, zoneSvg, popupLayer, state) {
     _cleanup = cleanup;
 
     function onClick(e) {
-        const pt = getImageCoordinates(e, panZoomLayer, state);
+        const pt = getImageCoordinates(e, imgEl, state);
         if (phase === 1) {
             A = pt;
             markerA = drawCircle(angleGroup, pt, state, 'blue');
@@ -61,14 +61,14 @@ export function enableAngleMeasure(panZoomLayer, zoneSvg, popupLayer, state) {
 
     function onMouseMove(e) {
         if (phase === 2) {
-            const p = getImageCoordinates(e, panZoomLayer, state);
+            const p = getImageCoordinates(e, imgEl, state);
             if (lineAB) angleGroup.removeChild(lineAB);
             if (markerB) angleGroup.removeChild(markerB);
             lineAB = drawLine(angleGroup, A, p, state, 'rgba(0, 0, 255, 0.5)');
             markerB = drawCircle(angleGroup, p, state, 'rgba(0, 0, 255, 0.5)');
         }
         if (phase === 3) {
-            const p = getImageCoordinates(e, panZoomLayer, state);
+            const p = getImageCoordinates(e, imgEl, state);
             if (lineBC) angleGroup.removeChild(lineBC);
             lineBC = drawLine(angleGroup, B, p, state, 'rgba(255, 0, 0, 0.5)');
         }
@@ -103,11 +103,9 @@ export function enableAngleMeasure(panZoomLayer, zoneSvg, popupLayer, state) {
     }
 
 function drawCircle(svg, [x, y], state, color) {
-    const cx = x * state.scale + state.translate.x;
-    const cy = y * state.scale + state.translate.y;
     const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
-    c.setAttribute('cx', cx);
-    c.setAttribute('cy', cy);
+    c.setAttribute('cx', x);
+    c.setAttribute('cy', y);
     c.setAttribute('r', '4');
     c.setAttribute('fill', color);
     c.setAttribute('pointer-events','none');
@@ -118,10 +116,10 @@ function drawCircle(svg, [x, y], state, color) {
 function drawLine(svg, p1, p2, state, color) {
     const [x1,y1] = p1, [x2,y2] = p2;
     const l = document.createElementNS('http://www.w3.org/2000/svg','line');
-    l.setAttribute('x1', x1*state.scale+state.translate.x);
-    l.setAttribute('y1', y1*state.scale+state.translate.y);
-    l.setAttribute('x2', x2*state.scale+state.translate.x);
-    l.setAttribute('y2', y2*state.scale+state.translate.y);
+    l.setAttribute('x1', x1);
+    l.setAttribute('y1', y1);
+    l.setAttribute('x2', x2);
+    l.setAttribute('y2', y2);
     l.setAttribute('stroke', color);
     l.setAttribute('stroke-width', '2');
     l.setAttribute('pointer-events','none');
@@ -144,11 +142,11 @@ function drawArc(svg, A, B, C, state, radius=30, fill) {
     const largeArcFlag = 0; 
     const r = radius;
 
-    const sx = (B[0] + Math.cos(a1)*r)*state.scale + state.translate.x;
-    const sy = (B[1] + Math.sin(a1)*r)*state.scale + state.translate.y;
+    const sx = (B[0] + Math.cos(a1)*r);
+    const sy = (B[1] + Math.sin(a1)*r);
 
-    const ex = (B[0] + Math.cos(a1 + delta)*r)*state.scale + state.translate.x;
-    const ey = (B[1] + Math.sin(a1 + delta)*r)*state.scale + state.translate.y;
+    const ex = (B[0] + Math.cos(a1 + delta)*r);
+    const ey = (B[1] + Math.sin(a1 + delta)*r);
 
     const d = `M ${sx} ${sy} A ${r} ${r} 0 ${largeArcFlag} ${sweepFlag} ${ex} ${ey}`;
     const path = document.createElementNS('http://www.w3.org/2000/svg','path');

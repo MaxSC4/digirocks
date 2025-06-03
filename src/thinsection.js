@@ -161,7 +161,7 @@ export async function init2DViewer(container){
                 angleActive = false;
                 showToast('Angle : annulé');
             } else {
-                enableAngleMeasure(panZoomLayer, zoneSvg, popupLayer, state);
+                enableAngleMeasure(panZoomLayer, zoneSvg, popupLayer, viewer, state);
                 angleActive = true;
                 showToast('Angle : placez le point A');
             }
@@ -179,7 +179,7 @@ export async function init2DViewer(container){
                 btn.classList.remove('active');
                 showToast('Surface : annulé');
             } else {
-                enableSurfaceMeasure(panZoomLayer, zoneSvg, popupLayer, state, window.cmPerUnit || 1);
+                enableSurfaceMeasure(panZoomLayer, zoneSvg, popupLayer, viewer, state, window.cmPerUnit || 1);
                 surfaceActive = true;
                 btn.classList.add('active');
             }
