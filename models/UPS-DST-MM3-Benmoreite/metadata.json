@@ -9,19 +9,25 @@
         "description": {
             "title": "Description",
             "icon": "info",
-            "content": "Roche volcanique alcaline, généralement noire à gris foncé, contenant des feldspaths et de l’olivine."
-        },
+            "content": "<div>Roche volcanique n°UPS-DST-MM3<br><br>Texture microlithique porphyrique<br><br><b>Minéralogie :</b> Phlogopite, Sanidine, Augite aegyrinique, (Opx), Hornblende, Oxydes Fe-Ti, Sphène, Apatite, Zircon, ...<br><br> <b>Âge :</b> 0.58 ± 0.03 Ma </div>"
+        }, 
 
         "lieu": {
             "title": "Lieu de prélèvement",
             "icon": "map-pin",
-            "content": "Île de Benmore, Ecosse"
+            "content": "<div>Massif Central, France<br>Roc de Courlande (63)<br><img src='models/UPS-DST-MM3-Benmoreite/images/carte_geol.png' class='clickable-image' alt='Extrait de la feuille 740 (BRGM) - Carte de La Tour d\\'Auvergne' data-full='models/UPS-DST-MM3-Benmoreite/images/carte_geol.png' data-caption=\"Extrait de la feuille 740 (BRGM) – <a href='http://ficheinfoterre.brgm.fr/Notices/0740N.pdf' target='_blank' rel='noopener noreferrer'>Carte de La Tour d'Auvergne</a>\" style='max-width:100%;'/></div>"
         },
 
-        "geoHtml": {
-            "title": "Diagramme TAS",
+        "composition": {
+            "title": "Composition",
             "icon": "flask-conical",
-            "content": "<img src='models/UPS-DST-MM3-Benmoreite/images/TAS_classification.png' style='max-width:100%;' />"
+            "content": "<img src='models/UPS-DST-MM3-Benmoreite/images/Analyse_Benmoreite.png' class='clickable-image' alt='Analyse géochimique - UPS-DST-MM3' data-full='models/UPS-DST-MM3-Benmoreite/images/Analyse_Benmoreite.png' data-caption=\"Analyse géochimique - UPS-DST-MM3\" style='max-width:100%;' />"
+        },
+
+        "tas": {
+            "title": "Diagramme TAS",
+            "icon": "chart-scatter",
+            "content": "<img src='models/UPS-DST-MM3-Benmoreite/images/TAS_UPS-DST-MM3.png' class='clickable-image' alt='Diagramme TAS - UPS-DST-MM3' data-full='models/UPS-DST-MM3-Benmoreite/images/TAS_UPS-DST-MM3.png' data-caption=\"Diagramme TAS - UPS-DST-MM3\"  style='max-width:100%;' />"
         }
     }
 }

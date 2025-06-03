@@ -3,74 +3,104 @@
         "id": "anno-001",
         "type": "point",
         "viewer": "3D",
-        "position": [0.12, 0.03, 0.22],
+        "position": [-0.02770428850756998, 0.009991727154816499, -0.03030840446680272],
         "linkedTo": "UPS-DST-MM3",
         "content": {
-            "title": "Cristal de pyroxène",
-            "text": "Structure prismatique caractéristique",
+            "title" : "Biotite",
+            "text": "Cristal de biotite au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LN.jpg' class='clickable-image' alt='Cristal de biotite en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LN.jpg' data-caption='Cristal de biotite en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LP.jpg' class='clickable-image' alt='Cristal de biotite en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LP.jpg' data-caption='Cristal de biotite en lumière naturelle'  width='250'>",
             "image": null
         }
     },
-
     {
         "id": "anno-002",
         "type": "point",
         "viewer": "3D",
-        "position": [0, 0, 0],
+        "position": [0.015926185130564367, 0.010561391629220093, 0.025433305311034715],
         "linkedTo": "UPS-DST-MM3",
         "content": {
-            "title": "Cristal de quartz",
-            "text": "Je sais pas",
+            "title" : "Clinopyroxène - Augite aegyrinique",
+            "text": "Cristal d'augite aegyrinique au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' class='clickable-image' alt='Clinopyroxène (Augite aegynirique) en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' data-caption='Clinopyroxène (Augite aegynirique) en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' class='clickable-image' alt='Clinopyroxène (Augite aegynirique) en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' data-caption='Clinopyroxène (Augite aegynirique) en lumière polarisée'  width='250'>",
             "image": null
         }
     },
-
     {
         "id": "anno-003",
         "type": "zone",
         "viewer": "3D",
         "points": [
-            [0.01, 0.00, -0.01],
-            [0.02, 0.00, -0.02],
-            [0.03, 0.00, -0.01],
-            [0.025, 0.00, 0.005]
+            [-0.06340545918193269, -0.007489366351035276, 0.030030773067456495],
+            [-0.06483685199414607, -0.0004540372635351911, 0.026191843187838737],
+            [-0.0647939968611084, 0.00536833990769423, 0.023082009502577328],
+            [-0.05815366373200178, 0.0065705565519978745, 0.022800701108892207],
+            [-0.0565922811784149, 0.002960938321289434, 0.02493229931334362],
+            [-0.054860484362405294, 0.0005602863914507938, 0.02634565141227463],
+            [-0.05597285938724066, -0.0026875771561501276, 0.028028371825052246],
+            [-0.05604027874578377, -0.006930717410585867, 0.03009948562121023],
+            [-0.0628571311455434, -0.008119565518799547, 0.0303239346707892]
         ],
         "linkedTo": "UPS-DST-MM3",
         "content": {
-            "title": "Zone altérée",
-            "text": "Altération hydrothermale visible par changement de teinte.",
+            "title": "Sanidine",
+            "text": "Cristal de sanidine au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LN.jpg' class='clickable-image' alt='Cristal de sanidine en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LN.jpg' data-caption='Cristal de sanidine en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LP.jpg' class='clickable-image' alt='Cristal de sanidine en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LP.jpg' data-caption='Cristal de sanidine en lumière polarisée' width='250'>",
             "image": null
         }
     },
 
     {
         "id": "anno-004",
-        "type": "point",
-        "viewer": "2D",
-        "position": [0, 0],
-        "linkedTo":"UPS-DST-MM3",
+        "type": "zone",
+        "viewer": "3D",
+        "points": [
+            [0.0009828716459991471, 0.038069862073656, -0.04319181620281809],
+            [-0.006176937333572313, 0.03570515904691596, -0.042245506548832856],
+            [-0.01388180492417613, 0.009398264511792726, -0.02958654568874186],
+            [-0.0167560687726548, 0.004882286654087308, -0.027440349367025996],
+            [-0.01730942209093137, -0.011274251993864795, -0.019542551913962813],
+            [-0.01233863643870116, -0.01495636689899538, -0.017626716827500055],
+            [-0.005561674694240704, -0.003704977955417339, -0.022956045068964426],
+            [0.0006213808537599641, 0.017976092210541823, -0.03338829964285095],
+            [0.0022550413880522598, 0.035648188893820904, -0.04197345346372949]
+        ],
+        "linkedTo": "UPS-DST-MM3",
         "content": {
-            "title": "Quartz automorphe",
-            "text": "Grain bien formé dans la matrice.",
+            "title": "Xénolithe de Basalte",
+            "text": "Diagramme TAS d'un basalte standard<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.png' class='clickable-image' alt='Diagramme TAS d'un basalte standard' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.jpg' data-caption='Diagramme TAS d'un Basalte standard' width='250'>",
             "image": null
         }
     },
-
     {
         "id": "anno-005",
-        "type": "zone",
+        "type": "point",
         "viewer": "2D",
+        "position": [9051.831589753503 , 2387.3305481114467],
         "linkedTo": "UPS-DST-MM3",
-        "points": [
-            [100, 100],
-            [600, 80],
-            [700, 300],
-            [500, 500],
-            [200, 450]
-        ],
         "content": {
-            "title": "Golfes de dissolution",
-            "text": "Zone bien délimitée",
+            "title" : "Hornblende",
+            "text": "Cristal d'hornblende (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Hornblende1_LN.jpg' class='clickable-image' alt='Hornblende en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Hornblende1_LN.jpg' data-caption='Hornblende en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Hornblende1_LP.jpg' class='clickable-image' alt='Hornblende en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Hornblende1_LP.jpg' data-caption='Hornblende en lumière polarisée'  width='250'>",
+            "image": null
+        }
+    },
+    {
+        "id": "anno-006",
+        "type": "point",
+        "viewer": "2D",
+        "position": [6860.191406653332, 4373.685679979191],
+        "linkedTo": "UPS-DST-MM3",
+        "content": {
+            "title" : "Augite aegyrinique (Cpx)",
+            "text": "Cristal d'augite aegynirique (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegyrinique_LN.jpg' class='clickable-image' alt='Augite aegyrinique en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique_LN.jpg' data-caption='Augite aegynirique en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique_LP.jpg' class='clickable-image' alt='Augite aegynirique en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique_LP.jpg' data-caption='Augite aegynirique en lumière polarisée'  width='250'>",
+            "image": null
+        }
+    },
+    {
+        "id": "anno-007",
+        "type": "point",
+        "viewer": "2D",
+        "position": [2405.9844805408316 , 7585.346494393582],
+        "linkedTo": "UPS-DST-MM3",
+        "content": {
+            "title" : "Zircon",
+            "text": "Cristal de zircon (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Zircon1_LN.jpg' class='clickable-image' alt='Zircon en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Zircon1_LN.jpg' data-caption='Zircon en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Zircon1_LP.jpg' class='clickable-image' alt='Zircon en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Zircon1_LP.jpg' data-caption='Zircon en lumière polarisée'  width='250'>",
             "image": null
         }
     }
