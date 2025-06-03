@@ -490,7 +490,7 @@ export function init3DViewer(canvas) {
         code : "UPS-DST-MM3",
         nom : "Benmoreite",
         sampleName : "Benmoréite",
-        path: "/models/UPS-DST-MM3-Benmoreite/"
+        path: "./models/UPS-DST-MM3-Benmoreite/"
     };
 
     window.chargerModele(demoRock);
