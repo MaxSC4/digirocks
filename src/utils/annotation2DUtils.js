@@ -73,7 +73,7 @@ export function build2DPopupHTML(annotation) {
  * @param {Map} popupsMap    – map des popups pour éviter doublons
  * @returns {HTMLDivElement|null}
  */
-export function attach2DPopup(annotation, position, state, container, popupsMap) {
+export function attach2DPopup(annotation, position, state, container, popupsMap, viewer) {
     if (popupsMap.has(annotation.id)) return null;
 
     const popup = document.createElement('div');
@@ -84,12 +84,40 @@ export function attach2DPopup(annotation, position, state, container, popupsMap)
     const html = build2DPopupHTML(annotation);
     popup.innerHTML = html;
 
-    // positionnement initial
+    // 1) positionnement “idéal” en fonction de state (avant clamp)
     const [ax, ay] = position;
-    const x = ax * state.scale + state.translate.x;
-    const y = ay * state.scale + state.translate.y;
-    popup.style.left = `${x}px`;
-    popup.style.top  = `${y}px`;
+    const idealX = ax * state.scale + state.translate.x;
+    const idealY = ay * state.scale + state.translate.y;
+
+    // 2) on pose d’abord le popup “à l’endroit idéal” (pour pouvoir mesurer offsetWidth/offsetHeight)
+    popup.style.left = `${idealX}px`;
+    popup.style.top  = `${idealY}px`;
+
+    // 3) récupérer le viewer parent (= .ts-viewer) pour connaître ses dimensions
+    if (!viewer) {
+        console.warn("attach2DPopup : le paramètre 'viewer' est manquant.");
+    return popup;
+    }
+
+    const vw = viewer.clientWidth;
+    const vh = viewer.clientHeight;
+    const pw = popup.offsetWidth;
+    const ph = popup.offsetHeight;
+
+    // 4) faire le clamp sur la zone [8px .. (vw-ph-8px)] x [8px .. (vh-ph-8px)]
+    const margin = 8;
+    let clampedX = idealX;
+    let clampedY = idealY;
+
+    if (clampedX + pw > vw - margin) clampedX = vw - pw - margin;
+    if (clampedX < margin)           clampedX = margin;
+
+    if (clampedY + ph > vh - margin) clampedY = vh - ph - margin;
+    if (clampedY < margin)           clampedY = margin;
+
+    popup.style.left = `${clampedX}px`;
+    popup.style.top  = `${clampedY}px`;
+
 
     // enregistrement et close handler
     popupsMap.set(annotation.id, { popup, position });
@@ -102,23 +130,45 @@ export function attach2DPopup(annotation, position, state, container, popupsMap)
 }
 
 /**
- * Met à jour la position de tous les popups 2D déjà ouverts.
- * @param {Map} popupsMap – valeurs { popup, position:[x,y] }
+ * Met à jour la position de tous les popups 2D déjà ouverts,
+ * en les clampant aux bords du viewer (.ts-viewer), et pas à la fenêtre entière.
+ * @param {Map} popupsMap – map d’entrées { popup, position:[x,y] }
  * @param {{ scale:number, translate:{x,y} }} state
  */
-export function update2DPopups(popupsMap, state) {
+export function update2DPopups(popupsMap, state, viewer) {
+    if (!viewer) return;
+
+    // 2) dimensions du viewer
+    const vw = viewer.clientWidth;
+    const vh = viewer.clientHeight;
+    const margin = 8;
+
+    // 3) pour chaque popup, recalcul de la position et clamp
     for (const { popup, position } of popupsMap.values()) {
+        // recalcul de la position “idéale” (avant clamp) en px
         const [ax, ay] = position;
-        const x = ax * state.scale + state.translate.x;
-        const y = ay * state.scale + state.translate.y;
-        const rect = popup.getBoundingClientRect();
-        const margin = 10;
-        const maxX = window.innerWidth - rect.width - margin;
-        const maxY = window.innerHeight - rect.height - margin;
-        popup.style.left = `${Math.max(margin, Math.min(x, maxX))}px`;
-        popup.style.top  = `${Math.max(margin, Math.min(y, maxY))}px`;
+        const idealX = ax * state.scale + state.translate.x;
+        const idealY = ay * state.scale + state.translate.y;
+
+        // taille du popup
+        const pw = popup.offsetWidth;
+        const ph = popup.offsetHeight;
+
+        // clamp horizontale
+        let clampedX = idealX;
+        if (clampedX + pw > vw - margin) clampedX = vw - pw - margin;
+        if (clampedX < margin)           clampedX = margin;
+
+        // clamp verticale
+        let clampedY = idealY;
+        if (clampedY + ph > vh - margin) clampedY = vh - ph - margin;
+        if (clampedY < margin)           clampedY = margin;
+
+        popup.style.left = `${clampedX}px`;
+        popup.style.top  = `${clampedY}px`;
     }
 }
+
 
 /**
  * Calcule le centroïde d'une liste de points 2D.

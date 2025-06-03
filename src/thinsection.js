@@ -99,7 +99,7 @@ export async function init2DViewer(container){
         annotationsVisible2D = !annotationsVisible2D;
         annotationLayer.style.display = annotationsVisible2D ? 'block' : 'none';
         zoneSvg.style.display = annotationsVisible2D ? 'block' : 'none';
-        update2DPopups(popups2D, state);
+        update2DPopups(popups2D, state, img);
         },
         toggleClass: 'active'
     },
@@ -227,7 +227,7 @@ export async function init2DViewer(container){
     bindPanZoomEvents(panZoomLayer, state, () => {
         applyTransform(panZoomLayer, state);
         update2DScale();
-        update2DPopups(popups2D, state);
+        update2DPopups(popups2D, state, img);
     }, {
         minScale: 0.2,
         maxScale: 5
@@ -266,7 +266,7 @@ export async function init2DViewer(container){
         applyTransform(panZoomLayer, state);
         window.tsTransform = {...state};
         update2DScale();
-        update2DPopups(popups2D, state);
+        update2DPopups(popups2D, state, img);
     }
 
     async function chargerAnnotations2D(code){
@@ -285,7 +285,7 @@ export async function init2DViewer(container){
             const pointEl = createAnnotationPoint2D(a, state);
             pointEl.addEventListener('click', e => {
             e.stopPropagation();
-            attach2DPopup(a, a.position, state, popupLayer, popups2D);
+            attach2DPopup(a, a.position, state, popupLayer, popups2D, img);
             });
             annotationLayer.appendChild(pointEl);
         });
@@ -342,9 +342,9 @@ export async function init2DViewer(container){
     }
 
     panZoomLayer.addEventListener('click', (event) => {
-        const [x, y] = getImageCoordinates(event, viewer, state);
-        console.log('clic brut en coords image:', x, y);
         if (!measure2DActive) return;
+
+        const [x, y] = getImageCoordinates(event, viewer, state);
 
         measurePoints2D.push([x,y]);
 

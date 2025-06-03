@@ -88,7 +88,7 @@
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title" : "Augite aegyrinique (Cpx)",
-            "text": "Cristal d'augite aegynirique (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegyrinique1_LN.jpg' class='clickable-image' alt='Augite aegyrinique en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique1_LN.jpg' data-caption='Augite aegynirique en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique1_LP.jpg' class='clickable-image' alt='Augite aegynirique en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique1_LP.jpg' data-caption='Augite aegynirique en lumière polarisée'  width='250'>",
+            "text": "Cristal d'augite aegynirique (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegyrinique_LN.jpg' class='clickable-image' alt='Augite aegyrinique en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique_LN.jpg' data-caption='Augite aegynirique en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique_LP.jpg' class='clickable-image' alt='Augite aegynirique en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Cpx-AugiteAegynirique_LP.jpg' data-caption='Augite aegynirique en lumière polarisée'  width='250'>",
             "image": null
         }
     },
