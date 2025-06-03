@@ -21,13 +21,13 @@
         "composition": {
             "title": "Composition",
             "icon": "flask-conical",
-            "content": "<img src='models/UPS-DST-MM3-Benmoreite/images/Analyse_Benmoreite.png' style='max-width:100%;' />"
+            "content": "<img src='models/UPS-DST-MM3-Benmoreite/images/Analyse_Benmoreite.png' class='clickable-image' alt='Analyse géochimique - UPS-DST-MM3' data-full='models/UPS-DST-MM3-Benmoreite/images/Analyse_Benmoreite.png' data-caption=\"Analyse géochimique - UPS-DST-MM3\" style='max-width:100%;' />"
         },
 
         "tas": {
             "title": "Diagramme TAS",
             "icon": "chart-scatter",
-            "content": "<img src='models/UPS-DST-MM3-Benmoreite/images/TAS_UPS-DST-MM3.png' style='max-width:100%;' />"
+            "content": "<img src='models/UPS-DST-MM3-Benmoreite/images/TAS_UPS-DST-MM3.png' class='clickable-image' alt='Diagramme TAS - UPS-DST-MM3' data-full='models/UPS-DST-MM3-Benmoreite/images/TAS_UPS-DST-MM3.png' data-caption=\"Diagramme TAS - UPS-DST-MM3\"  style='max-width:100%;' />"
         }
     }
 }
