@@ -9,13 +9,13 @@
         "description": {
             "title": "Description",
             "icon": "info",
-            "content": "Roche volcanique n°UPS-DST-MM3"
-        },
+            "content": "<div>Roche volcanique n°UPS-DST-MM3<br><br>Texture microlithique porphyrique<br><br><b>Minéralogie :</b> Phlogopite, Sanidine, Augite aegyrinique, (Opx), Hornblende, Oxydes Fe-Ti, Sphène, Apatite, Zircon, ...<br><br> <b>Âge :</b> 0.58 ± 0.03 Ma </div>"
+        }, 
 
         "lieu": {
             "title": "Lieu de prélèvement",
             "icon": "map-pin",
-            "content": "<div>Massif Central, France<br>Roc de Courlande (63)<br><img src='models/UPS-DST-MM3-Benmoreite/images/carte_geol.png' alt='Roc de Courlande' style='max-width: 100%; height: auto;'></div>"
+            "content": "<div>Massif Central, France<br>Roc de Courlande (63)<br><img src='models/UPS-DST-MM3-Benmoreite/images/carte_geol.png' class='clickable-image' alt='Extrait de la feuille 740 (BRGM) - Carte de La Tour d\\'Auvergne' data-full='models/UPS-DST-MM3-Benmoreite/images/carte_geol.png' data-caption=\"Extrait de la feuille 740 (BRGM) – <a href='http://ficheinfoterre.brgm.fr/Notices/0740N.pdf' target='_blank' rel='noopener noreferrer'>Carte de La Tour d'Auvergne</a>\" style='max-width:100%;'/></div>"
         },
 
         "composition": {

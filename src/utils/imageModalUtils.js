@@ -21,7 +21,7 @@ export function initImageModal(selector, options = {}) {
     const openModal = (src, alt, caption) => {
         imgEl.src        = src;
         imgEl.alt        = alt;
-        captionEl.textContent = caption;
+        captionEl.innerHTML = caption;
         modal.classList.add('open');
         modal.setAttribute('aria-hidden', 'false');
     };

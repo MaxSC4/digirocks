@@ -7,7 +7,7 @@
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title" : "Biotite",
-            "text": "Cristal de biotite au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LN.jpg' class='clickable-image' alt='Cristal de biotite en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LN.jpg' data-caption='Cristal de biotite en lumière naturelle' width='400'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LP.jpg' class='clickable-image' alt='Cristal de biotite en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LP.jpg' data-caption='Cristal de biotite en lumière naturelle'  width='400'>",
+            "text": "Cristal de biotite au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LN.jpg' class='clickable-image' alt='Cristal de biotite en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LN.jpg' data-caption='Cristal de biotite en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LP.jpg' class='clickable-image' alt='Cristal de biotite en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Biotite1_LP.jpg' data-caption='Cristal de biotite en lumière naturelle'  width='250'>",
             "image": null
         }
     },
@@ -19,7 +19,7 @@
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title" : "Clinopyroxène - Augite aegyrinique",
-            "text": "Cristal d'augite aegyrinique au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' class='clickable-image' alt='Clinopyroxène (Augite aegynirique) en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' data-caption='Clinopyroxène (Augite aegynirique) en lumière naturelle' width='400'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' class='clickable-image' alt='Clinopyroxène (Augite aegynirique) en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' data-caption='Clinopyroxène (Augite aegynirique) en lumière polarisée'  width='400'>",
+            "text": "Cristal d'augite aegyrinique au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' class='clickable-image' alt='Clinopyroxène (Augite aegynirique) en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LN.jpg' data-caption='Clinopyroxène (Augite aegynirique) en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' class='clickable-image' alt='Clinopyroxène (Augite aegynirique) en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Pyroxene1_LP.jpg' data-caption='Clinopyroxène (Augite aegynirique) en lumière polarisée'  width='250'>",
             "image": null
         }
     },
@@ -34,14 +34,14 @@
             [-0.05815366373200178, 0.0065705565519978745, 0.022800701108892207],
             [-0.0565922811784149, 0.002960938321289434, 0.02493229931334362],
             [-0.054860484362405294, 0.0005602863914507938, 0.02634565141227463],
-            [-0.05597285938724066, -0.0026875771561501276, 0.028028371840052246],
+            [-0.05597285938724066, -0.0026875771561501276, 0.028028371825052246],
             [-0.05604027874578377, -0.006930717410585867, 0.03009948562121023],
             [-0.0628571311455434, -0.008119565518799547, 0.0303239346707892]
         ],
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title": "Sanidine",
-            "text": "Cristal de sanidine au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LN.jpg' class='clickable-image' alt='Cristal de sanidine en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LN.jpg' data-caption='Cristal de sanidine en lumière naturelle' width='400'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LP.jpg' class='clickable-image' alt='Cristal de sanidine en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LP.jpg' data-caption='Cristal de sanidine en lumière polarisée' width='400'>",
+            "text": "Cristal de sanidine au microscope (LN & LP)<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LN.jpg' class='clickable-image' alt='Cristal de sanidine en lumière naturelle' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LN.jpg' data-caption='Cristal de sanidine en lumière naturelle' width='250'><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LP.jpg' class='clickable-image' alt='Cristal de sanidine en lumière polarisée' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/Sanidine1_LP.jpg' data-caption='Cristal de sanidine en lumière polarisée' width='250'>",
             "image": null
         }
     },
@@ -64,7 +64,7 @@
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title": "Xénolithe de Basalte",
-            "text": "Diagramme TAS d'un basalte standard<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.png' class='clickable-image' alt='Diagramme TAS d'un basalte standard' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.jpg' data-caption='Diagramme TAS d'un Basalte standard' width='400'>",
+            "text": "Diagramme TAS d'un basalte standard<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.png' class='clickable-image' alt='Diagramme TAS d'un basalte standard' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.jpg' data-caption='Diagramme TAS d'un Basalte standard' width='250'>",
             "image": null
         }
     }
