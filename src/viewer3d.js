@@ -481,4 +481,17 @@ export function init3DViewer(canvas) {
             alert(`Impossible de charger ce modèle : ${rock.nom}. Contactez un administrateur.`)
         }
     };
+
+    // —————————————————————
+    // Demo : charger par défaut la benmoréite au démarrage
+    // —————————————————————
+
+    const demoRock = {
+        code : "UPS-DST-MM3",
+        nom : "Benmoreite",
+        sampleName : "Benmoréite",
+        path: "/models/UPS-DST-MM3-Benmoreite/"
+    };
+
+    window.chargerModele(demoRock);
 };
