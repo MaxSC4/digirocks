@@ -356,14 +356,23 @@ export function init3DViewer(canvas) {
     }
 
     function onClickAnnotation(event) {
-        const intersects = performRaycastOnObjects(event, camera, annotationMeshes);
-        if (!intersects.length) return;
+        if (!model || annotationMeshes.length === 0) return;
 
-        const hit = intersects[0];
-        const annotation = hit.object.userData.annotation;
-        if (!annotation) return;
+        const hitRock = performRaycast(event, camera, model);
+        const distRock = hitRock ? hitRock.distance : Infinity;
 
-        afficherPopupAnnotation(annotation, hit.point);
+        const hitsAnno = performRaycastOnObjects(event, camera, annotationMeshes);
+        if (hitsAnno.length === 0) return;
+
+        const hitAnno = hitsAnno[0];
+        const distAnno = hitAnno.distance;
+
+        if (distAnno < distRock){
+            const annotation = hitAnno.object.userData.annotation;
+            if (annotation) {
+                afficherPopupAnnotation(annotation, hitAnno.point.clone());
+            }
+        }
     }
 
     function afficherPopupAnnotation(annotation, position3D) { 
