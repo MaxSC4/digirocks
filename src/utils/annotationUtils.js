@@ -77,6 +77,21 @@ export function createZoneAnnotationMesh(annotation) {
     });
 
     const mesh = new THREE.Mesh(geom, mat);
+
+    if (annotation.points.length >= 3) {
+        const p0 = new THREE.Vector3(...annotation.points[0]);
+        const p1 = new THREE.Vector3(...annotation.points[1]);
+        const p2 = new THREE.Vector3(...annotation.points[2]);
+
+        const v1 = new THREE.Vector3().subVectors(p1, p0);
+        const v2 = new THREE.Vector3().subVectors(p2, p0);
+
+        const normal = new THREE.Vector3().crossVectors(v1, v2).normalize();
+
+        const eps = -0.001;
+        mesh.position.addScaledVector(normal, eps);
+    }
+
     mesh.userData.annotation = annotation;
     return mesh;
 }
