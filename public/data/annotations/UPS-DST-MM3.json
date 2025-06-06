@@ -64,7 +64,7 @@
         "linkedTo": "UPS-DST-MM3",
         "content": {
             "title": "Xénolithe de Basalte",
-            "text": "Diagramme TAS d'un basalte standard<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.png' class='clickable-image' alt='Diagramme TAS d'un basalte standard' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.png' data-caption='Diagramme TAS d'un Basalte standard' width='250'>",
+            "text": "<div>Diagramme TAS d'un basalte standard<br><img src='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.png' class='clickable-image' alt='Diagramme TAS d'un basalte standard' data-full='models/UPS-DST-MM3-Benmoreite/images/annotations/TAS_Basalte.png' data-caption='Diagramme TAS d'un Basalte standard' width='250'></div>",
             "image": null
         }
     },
