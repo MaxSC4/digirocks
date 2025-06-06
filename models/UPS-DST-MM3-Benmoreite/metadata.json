@@ -9,7 +9,7 @@
         "description": {
             "title": "Description",
             "icon": "info",
-            "content": "<div>Roche volcanique n°UPS-DST-MM3<br><br>Texture microlithique porphyrique<br><br><b>Minéralogie :</b> Phlogopite, Sanidine, Augite aegyrinique, (Opx), Hornblende, Oxydes Fe-Ti, Sphène, Apatite, Zircon, ...<br><br> <b>Âge :</b> 0.58 ± 0.03 Ma </div>"
+            "content": "<div>Roche volcanique n°UPS-DST-MM3<br><br><b>Texture :</b> Microlithique porphyrique<br><br><b>Minéralogie :</b> Phlogopite, Sanidine, Augite aegyrinique, (Opx), Hornblende, Oxydes Fe-Ti, Sphène, Apatite, Zircon, ...<br><br> <b>Âge :</b> 0.76 ± 0.04 Ma (K/Ar) <br>Cantagrel, J.M., Baubron, J.C. (1983) </div>"
         }, 
 
         "lieu": {
