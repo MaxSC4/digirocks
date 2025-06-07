@@ -44,9 +44,11 @@ export function createMagnifier(imgEl, state, {
         lastDraw = now;
 
         const { scale, translate } = state;
-
-        const [sx, sy] = getImageCoordinates(e, imgEl, state);
         
+        const rect = imgEl.getBoundingClientRect();
+        const sx = (e.clientX - rect.left) / scale;
+        const sy = (e.clientY - rect.top) / scale;
+
         const effectiveZoom = zoomFactor * scale;
         const srcSize = size / effectiveZoom;
 
