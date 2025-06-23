@@ -7,6 +7,7 @@ import { capture2DWithScale } from './utils/screenshotUtils.js';
 import { initLightModeSwitcher } from './utils/lightModeUtils.js';
 import { getImageCoordinates } from './utils/coordsUtils.js';
 import { compute2DLengthFromPixels } from "./utils/scaleUtils.js";
+import { enterRegionCaptureMode } from "./utils/regionScreenshotUtils.js";
 
 import {
     draw2DMarker,
@@ -106,13 +107,29 @@ export async function init2DViewer(container){
     {
         id: 'captureThinScreenshot',
         handler: async () => {
-            const dataURL = await capture2DWithScale(viewer);
-            const link = document.createElement('a');
-            link.download = `lame-mince-${Date.now()}.png`;
-            link.href = dataURL;
-            link.click();
+            try {
+                showToast('Sélectionnez la zone à capturer...');
+
+                const region = await enterRegionCaptureMode(viewer);
+                if (!region) {
+                    showToast('Capture annulée');
+                    return;
+                }
+
+                showToast('Capture en cours...');
+
+                const dataURL = await capture2DWithScale(viewer, region);
+                const a = document.createElement('a');
+                a.href = dataURL;
+                a.download = `lame-mince-${rock.code}-${Date.now()}.png`;
+                a.click();
+
+                showToast('Capture téléchargée');
+            } catch (err) {
+                console.error('Erreur capture :', err);
+                showToast('Erreur lors de la capture');
+            }
         },
-        toastMsg: 'Capture téléchargée'
     },
     {
         id: 'toggleMagnifier2D',

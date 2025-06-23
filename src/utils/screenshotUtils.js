@@ -1,124 +1,119 @@
 import html2canvas from 'html2canvas';
 
 /**
- * Capture a screenshot of the 2D viewer (.ts-viewer) plus a footer bar at the bottom
- * containing:
- *   • a white scale‐bar of the same on-screen pixel width
- *   • the scale value text (e.g. “3.2 cm”)
- *   • “| Échantillon : <sampleName> | ID : <rockCode>”
+ * Capture un screenshot du wrapper 2D avec footer + échelle + infos.
+ * Si `region` est renseigné ({ x,y,width,height }), on recadre la capture.
  *
- * This entire footer is rendered into an OFF‐SCREEN clone of the viewer so that
- * the real viewer never “flashes” the footer. Once html2canvas finishes, we remove
- * the clone and return the PNG dataURL.
- *
- * @param {HTMLElement} wrapper
- *   The original `<div class="ts-viewer">…</div>` returned by setup2DEnvironment.
- * @returns {Promise<string>}
- *   A PNG dataURL of the final screenshot.
+ * @param {HTMLElement} wrapper  – l’élément .ts-viewer
+ * @param {{ x:number, y:number, width:number, height:number } | null} [region=null]
+ * @returns {Promise<string>}    – dataURL PNG (region ou full)
  */
-export async function capture2DWithScale(wrapper) {
-    // 1) Gather “live” scale‐bar metrics from the real DOM:
-    const liveBar = document.querySelector('.scale-bar');
+export async function capture2DWithScale(wrapper, region = null) {
+    // 1) Trouver la barre et le label “live”
+    const liveBar   = document.querySelector('.scale-bar');
     const liveLabel = document.querySelector('.scale-label');
     if (!liveBar || !liveLabel) {
-        // If no scale UI is found, just snapshot wrapper directly:
-        console.warn('[capture2DWithScale] could not find .scale-bar or .scale-label. Doing a direct snapshot.');
-        const fallbackCanvas = await html2canvas(wrapper, {
-        backgroundColor: null,
-        logging: false,
-        useCORS: true,
-        width: wrapper.clientWidth,
-        height: wrapper.clientHeight
-        });
-        return fallbackCanvas.toDataURL('image/png');
+        console.warn('[capture2DWithScale] .scale-bar ou .scale-label introuvable, snapshot direct');
+        const fb = await html2canvas(wrapper, { backgroundColor: null, logging: false, useCORS: true });
+        return fb.toDataURL('image/png');
     }
 
-    const barRect = liveBar.getBoundingClientRect();
+    // 2) Récupérer positions / textes
+    const barRect   = liveBar.getBoundingClientRect();
     const labelText = liveLabel.textContent?.trim() || '';
+    const sample    = window.rocheActuelle?.sampleName || '';
+    const code      = window.rocheActuelle?.code || '';
 
-    // 2) Grab sampleName and rockCode:
-    const sampleName = window.rocheActuelle?.sampleName || '';
-    const rockCode   = window.rocheActuelle?.code       || '';
+    // 3) Cloner invisiblement le viewer
+    const clone = wrapper.cloneNode(true);
+    Object.assign(clone.style, {
+        position: 'fixed',
+        top:      '-200%',
+        left:     '-200%',
+        opacity:  '1'
+    });
+    document.body.appendChild(clone);
 
-    // 3) Clone the entire viewer. This clone will be positioned off‐screen so the user never sees it.
-    const cloneViewer = wrapper.cloneNode(true);
-    cloneViewer.style.position = 'fixed';
-    cloneViewer.style.top      = '-200%';
-    cloneViewer.style.left     = '-200%';
-    cloneViewer.style.opacity  = '1'; // Must be “visible” to html2canvas, but off‐screen so it never actually shows.
-
-    // 4) Build a “footer” DIV at the bottom of the clone – exactly like the 3D footer
+    // 4) Construire le footer (comme en 3D)
     const footer = document.createElement('div');
     footer.className = 'screenshot-footer';
     Object.assign(footer.style, {
-        position: 'absolute',
-        bottom: '0',
-        left: '0',
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '4px 8px',
-        boxSizing: 'border-box',
-        backgroundColor: 'rgba(0, 0, 0, 0.6)', // semi‐opaque black
-        zIndex: '9999'
+        position:      'absolute',
+        bottom:        '0',
+        left:          '0',
+        width:         '100%',
+        display:       'flex',
+        alignItems:    'center',
+        padding:       '4px 8px',
+        boxSizing:     'border-box',
+        background:    'rgba(0,0,0,0.6)',
+        zIndex:        '9999',
     });
 
-    // 5) Create a white scale‐bar of the exact same pixel width/height as the live one:
-    const scaleBarClone = document.createElement('div');
-    Object.assign(scaleBarClone.style, {
-        width:  `${barRect.width}px`,
-        height: `${barRect.height}px`,
-        backgroundColor: '#ffffff',
-        flexShrink: '0'
+    // 5) barre blanche
+    const barClone = document.createElement('div');
+    Object.assign(barClone.style, {
+        width:            `${barRect.width}px`,
+        height:           `${barRect.height}px`,
+        backgroundColor:  '#fff',
+        flexShrink:       '0'
     });
 
-    // 6) Next, the scale‐value text (e.g. “3.2 cm”), in white:
-    const scaleTextClone = document.createElement('div');
-    scaleTextClone.textContent = labelText;
-    Object.assign(scaleTextClone.style, {
-        color: '#ffffff',
-        fontSize: '14px',
-        marginLeft: '8px',
-        whiteSpace: 'nowrap',
-        flexShrink: '0'
+    // 6) texte d’échelle
+    const txt = document.createElement('div');
+    txt.textContent = labelText;
+    Object.assign(txt.style, {
+        color:       '#fff',
+        fontSize:    '14px',
+        marginLeft:  '8px',
+        whiteSpace:  'nowrap',
+        flexShrink:  '0'
     });
 
-    // 7) Finally, append the “| Échantillon : ... | ID : ...”:
-    const infoTextClone = document.createElement('div');
-    infoTextClone.textContent = `  |  Échantillon : ${sampleName}  |  ID : ${rockCode}`;
-    Object.assign(infoTextClone.style, {
-        color: '#ffffff',
-        fontSize: '14px',
+    // 7) infos échantillon + ID
+    const info = document.createElement('div');
+    info.textContent = `  |  Échantillon : ${sample}  |  ID : ${code}`;
+    Object.assign(info.style, {
+        color:      '#fff',
+        fontSize:   '14px',
         marginLeft: '16px',
         whiteSpace: 'nowrap'
     });
 
-    // 8) Assemble footer:
-    footer.appendChild(scaleBarClone);
-    footer.appendChild(scaleTextClone);
-    footer.appendChild(infoTextClone);
+    // 8) assembler
+    footer.append(barClone, txt, info);
+    clone.appendChild(footer);
 
-    // 9) Attach footer into our cloneViewer:
-    cloneViewer.appendChild(footer);
-
-    // 10) Insert cloneViewer into document.body, off‐screen:
-    document.body.appendChild(cloneViewer);
-
-    // 11) Run html2canvas on the clone (which now has our footer at the bottom):
-    const canvas = await html2canvas(cloneViewer, {
+    // 9) screenshot du clone
+    const canvas = await html2canvas(clone, {
         backgroundColor: null,
-        logging: false,
-        useCORS: true,
-        width:  cloneViewer.clientWidth,
-        height: cloneViewer.clientHeight
+        logging:         false,
+        useCORS:         true,
+        width:           clone.clientWidth,
+        height:          clone.clientHeight
     });
 
-    // 12) Clean up the off‐screen clone immediately:
-    document.body.removeChild(cloneViewer);
+    // 10) cleanup
+    document.body.removeChild(clone);
 
-    // 13) Return the PNG dataURL:
+    // 11) si on veut recadrer la région
+    if (region) {
+        const { x, y, width, height } = region;
+        const crop = document.createElement('canvas');
+        crop.width  = width;
+        crop.height = height;
+        const ctx = crop.getContext('2d');
+        ctx.drawImage(canvas,
+        x, y, width, height,
+        0, 0, width, height
+        );
+        return crop.toDataURL('image/png');
+    }
+
+    // 12) sinon, return full
     return canvas.toDataURL('image/png');
 }
+
 
 
 
